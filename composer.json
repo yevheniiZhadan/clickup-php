@@ -1,5 +1,5 @@
 {
-    "name": "howyi/clickup-php",
+    "name": "eduard9969/clickup-php",
     "description": "Fork ClickUp API client (unofficial)",
     "keywords": ["ClickUp", "click-up", "api"],
     "type": "library",
