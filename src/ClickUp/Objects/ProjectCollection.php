@@ -10,22 +10,22 @@ namespace ClickUp\Objects;
  */
 class ProjectCollection extends AbstractObjectCollection
 {
-	public function __construct(Space $space, $array)
-	{
-		parent::__construct($space->client(), $array);
-		foreach ($this as $project) {
-			$project->setSpace($space);
-			if ($project->overrideStatuses() === false) {
-				$project->setStatuses($space->statuses());
-			}
-		}
-	}
+    public function __construct(Space $space, $array)
+    {
+        parent::__construct($space->client(), $array);
+        foreach ($this as $project) {
+            $project->setSpace($space);
+            if($project->overrideStatuses() === false) {
+                $project->setStatuses($space->statuses());
+            }
+        }
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function objectClass()
-	{
-		return Project::class;
-	}
+    /**
+     * @return string
+     */
+    protected function objectClass()
+    {
+        return Project::class;
+    }
 }

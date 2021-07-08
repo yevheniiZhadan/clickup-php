@@ -10,34 +10,35 @@ namespace ClickUp\Objects;
  */
 class TeamMemberCollection extends UserCollection
 {
-	public function __construct(Team $team, $array)
-	{
-		parent::__construct($team->client(), $array);
-		$this->setTeam($team);
-	}
+    public function __construct(Team $team, $array)
+    {
+        parent::__construct($team->client(), $array);
+        $this->setTeam($team);
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function objectClass()
-	{
-		return TeamMember::class;
-	}
+    private function setTeam(Team $team)
+    {
+        foreach ($this as $teamMember) {
+            $teamMember->setTeam($team);
+        }
+    }
 
-	/**
-	 * @param array $array
-	 */
-	protected function fromArray($array)
-	{
-		foreach ($array as $key => $value) {
-			$array[$key] = $value['user'];
-		}
-		parent::fromArray($array);
-	}
+    /**
+     * @return string
+     */
+    protected function objectClass()
+    {
+        return TeamMember::class;
+    }
 
-	private function setTeam(Team $team) {
-		foreach ($this as $teamMember) {
-			$teamMember->setTeam($team);
-		}
-	}
+    /**
+     * @param array $array
+     */
+    protected function fromArray($array)
+    {
+        foreach ($array as $key => $value) {
+            $array[$key] = $value['user'];
+        }
+        parent::fromArray($array);
+    }
 }

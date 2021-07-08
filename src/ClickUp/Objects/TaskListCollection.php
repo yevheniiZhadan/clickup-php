@@ -10,19 +10,19 @@ namespace ClickUp\Objects;
  */
 class TaskListCollection extends AbstractObjectCollection
 {
-	public function __construct(Project $project, $array)
-	{
-		parent::__construct($project->client(), $array);
-		foreach ($this as $taskList) {
-			$taskList->setProject($project);
-		}
-	}
+    public function __construct(Project $project, $array)
+    {
+        parent::__construct($project->client(), $array);
+        foreach ($this as $taskList) {
+            $taskList->setProject($project);
+        }
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function objectClass()
-	{
-		return TaskList::class;
-	}
+    /**
+     * @return string
+     */
+    protected function objectClass()
+    {
+        return TaskList::class;
+    }
 }

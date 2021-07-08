@@ -10,16 +10,16 @@ namespace ClickUp\Objects;
  */
 class StatusCollection extends AbstractObjectCollection
 {
-	/**
-	 * @return string
-	 */
-	protected function objectClass()
-	{
-		return Status::class;
-	}
+    public function key()
+    {
+        return 'orderindex';
+    }
 
-	public function key()
-	{
-		return 'orderindex';
-	}
+    /**
+     * @return string
+     */
+    protected function objectClass()
+    {
+        return Status::class;
+    }
 }

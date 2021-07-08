@@ -12,19 +12,19 @@ use ClickUp\Client;
  */
 class TaskCollection extends AbstractObjectCollection
 {
-	public function __construct(Client $client, $array, $teamId)
-	{
-		parent::__construct($client, $array);
-		foreach ($this as $task) {
-			$task->setTeamId($teamId);
-		}
-	}
+    public function __construct(Client $client, $array, $teamId)
+    {
+        parent::__construct($client, $array);
+        foreach ($this as $task) {
+            $task->setTeamId($teamId);
+        }
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function objectClass()
-	{
-		return Task::class;
-	}
+    /**
+     * @return string
+     */
+    protected function objectClass()
+    {
+        return Task::class;
+    }
 }

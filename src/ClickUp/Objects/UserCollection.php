@@ -10,19 +10,19 @@ namespace ClickUp\Objects;
  */
 class UserCollection extends AbstractObjectCollection
 {
-	/**
-	 * @return string
-	 */
-	protected function nameKey()
-	{
-		return 'username';
-	}
+    /**
+     * @return string
+     */
+    protected function nameKey()
+    {
+        return 'username';
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function objectClass()
-	{
-		return User::class;
-	}
+    /**
+     * @return string
+     */
+    protected function objectClass()
+    {
+        return User::class;
+    }
 }

@@ -1,11 +1,15 @@
-# clickup-php
+# Fork for the clickup-php
+
+Fork for the original repo [clickup-php](https://github.com/howyi/clickup-php) | Author: [howyi](https://github.com/howyi)
 
 A simple wrapper for [ClickUp](https://clickup.com/) API (v1-BETA).
 
+Fork difference:
+- Api update to version 2 (in progress)
 
 ## Install
 ```
-composer require "howyi/clickup-php"
+composer require "Eduard9969/clickup-php"
 ```
 
 ## Usage
@@ -13,10 +17,10 @@ composer require "howyi/clickup-php"
 ### Generate client
 ```php
 // create Client (required: API_TOKEN)
-$client = new ClickUp\Client('API_TOKEN');
+$client = new ClickUp\Client('API_TOKEN', 'API_VERSION');
 ```
 
-### get
+### Get
 
 ```php
 // me
@@ -75,7 +79,7 @@ $task = $taskList->task(3333);
 // -> \ClickUp\Objects\Task
 ```
 
-### create 
+### Create 
 ```php
 /**
  * create task list in project
@@ -90,7 +94,7 @@ $project->createTaskList(['name' => 'newTaskList']);
 $taskList->createTask(['name' => 'my second task']);
 ```
 
-### update
+### Update
 ```php
 /**
  * update task list

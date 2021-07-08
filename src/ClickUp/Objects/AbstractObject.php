@@ -7,44 +7,44 @@ use ClickUp\Client;
 abstract class AbstractObject
 {
     /* @var Client $client */
-	private $client;
+    private $client;
 
-	/* @var array $extra */
-	private $extra;
+    /* @var array $extra */
+    private $extra;
 
-	/**
-	 * @param Client $client
-	 * @param array  $array
-	 */
-	public function __construct(Client $client, $array)
-	{
-		$this->setClient($client);
-		$this->fromArray($array);
-		$this->setExtra($array);
-	}
+    /**
+     * @param Client $client
+     * @param array $array
+     */
+    public function __construct(Client $client, $array)
+    {
+        $this->setClient($client);
+        $this->fromArray($array);
+        $this->setExtra($array);
+    }
 
-	abstract protected function fromArray($array);
+    private function setClient(Client $client)
+    {
+        $this->client = $client;
+    }
 
-	/**
-	 * @return Client
-	 */
-	protected function client()
-	{
-		return $this->client;
-	}
+    abstract protected function fromArray($array);
 
-	private function setClient(Client $client)
-	{
-		$this->client = $client;
-	}
+    private function setExtra($array)
+    {
+        $this->extra = $array;
+    }
 
-	private function setExtra($array)
-	{
-		$this->extra = $array;
-	}
+    public function extra()
+    {
+        return $this->extra;
+    }
 
-	public function extra()
-	{
-		return $this->extra;
-	}
+    /**
+     * @return Client
+     */
+    protected function client()
+    {
+        return $this->client;
+    }
 }

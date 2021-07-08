@@ -2,87 +2,92 @@
 
 namespace ClickUp\Objects;
 
-abstract class AbstractObjectCollection extends AbstractObject implements \IteratorAggregate
+use ArrayIterator;
+use IteratorAggregate;
+use RuntimeException;
+use Traversable;
+
+abstract class AbstractObjectCollection extends AbstractObject implements IteratorAggregate
 {
-	/* @var AbstractObject[] $objects */
-	protected $objects;
+    /* @var AbstractObject[] $objects */
+    protected $objects;
 
-	/**
-	 * @param array $array
-	 */
-	protected function fromArray($array)
-	{
-		$class = $this->objectClass();
-		foreach ($array as $value) {
-			$this->objects[$value[$this->key()]] = new $class(
-				$this->client(),
-				$value
-			);
-		}
-	}
+    /**
+     * @param int $id
+     * @return AbstractObject
+     */
+    public function getByKey($id)
+    {
+        if(!isset($this->objects[$id])) {
+            throw new RuntimeException("id:$id not exist.");
+        }
+        return $this->objects[$id];
+    }
 
-	/**
-	 * @return string
-	 */
-	abstract protected function objectClass();
+    /**
+     * @param string $name
+     * @return AbstractObject
+     */
+    public function getByName($name)
+    {
+        $nameKey = $this->nameKey();
+        foreach ($this as $value) {
+            if($name === $value->$nameKey()) {
+                return $value;
+            }
+        }
+        throw new RuntimeException("name:$name not exist.");
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function key()
-	{
-		return 'id';
-	}
+    /**
+     * @return string
+     */
+    protected function nameKey()
+    {
+        return 'name';
+    }
 
-	/**
-	 * @return string
-	 */
-	protected function nameKey()
-	{
-		return 'name';
-	}
+    /**
+     * @return ArrayIterator|Traversable
+     */
+    public function getIterator()
+    {
+        return new ArrayIterator($this->objects());
+    }
 
-	/**
-	 * @param int $id
-	 * @return AbstractObject
-	 */
-	public function getByKey($id)
-	{
-		if (!isset($this->objects[$id])) {
-			throw new \RuntimeException("id:$id not exist.");
-		}
-		return $this->objects[$id];
-	}
+    /**
+     * @return AbstractObject[]
+     */
+    public function objects()
+    {
+        return $this->objects;
+    }
 
-	/**
-	 * @param string $name
-	 * @return AbstractObject
-	 */
-	public function getByName($name)
-	{
-		$nameKey = $this->nameKey();
-		foreach ($this as $value) {
-			if ($name === $value->$nameKey()) {
-				return $value;
-			}
-		}
-		throw new \RuntimeException("name:$name not exist.");
-	}
+    /**
+     * @param array $array
+     */
+    protected function fromArray($array)
+    {
+        $class = $this->objectClass();
+        foreach ($array as $value) {
+            $this->objects[$value[$this->key()]] = new $class(
+                $this->client(),
+                $value
+            );
+        }
+    }
 
-	/**
-	 * @return AbstractObject[]
-	 */
-	public function objects()
-	{
-		return $this->objects;
-	}
+    /**
+     * @return string
+     */
+    abstract protected function objectClass();
 
-	/**
-	 * @return \ArrayIterator|\Traversable
-	 */
-	public function getIterator()
-	{
-		return new \ArrayIterator($this->objects());
-	}
+    /**
+     * @return string
+     */
+    protected function key()
+    {
+        return 'id';
+    }
 }
 

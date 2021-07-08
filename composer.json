@@ -1,6 +1,7 @@
 {
     "name": "howyi/clickup-php",
-    "description": "ClickUp API client (unofficial)",
+    "version": "1.0.2",
+    "description": "Fork ClickUp API client (unofficial)",
     "keywords": ["ClickUp", "click-up", "api"],
     "type": "library",
     "license": "MIT",

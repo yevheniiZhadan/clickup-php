@@ -10,11 +10,11 @@ namespace ClickUp\Objects;
  */
 class TeamCollection extends AbstractObjectCollection
 {
-	/**
-	 * @return string
-	 */
-	protected function objectClass()
-	{
-		return Team::class;
-	}
+    /**
+     * @return string
+     */
+    protected function objectClass()
+    {
+        return Team::class;
+    }
 }

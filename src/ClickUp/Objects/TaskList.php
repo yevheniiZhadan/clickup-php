@@ -4,99 +4,99 @@ namespace ClickUp\Objects;
 
 class TaskList extends AbstractObject
 {
-	use TaskFinderTrait;
+    use TaskFinderTrait;
 
-	/* @var int $id*/
-	private $id;
+    /* @var int $id */
+    private $id;
 
-	/* @var string $name */
-	private $name;
+    /* @var string $name */
+    private $name;
 
-	/* @var Project $project */
-	private $project;
+    /* @var Project $project */
+    private $project;
 
-	/**
-	 * @return int
-	 */
-	public function id()
-	{
-		return $this->id;
-	}
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->name;
+    }
 
-	/**
-	 * @return string
-	 */
-	public function name()
-	{
-		return $this->name;
-	}
+    /**
+     * @param Project $project
+     */
+    public function setProject(Project $project)
+    {
+        $this->project = $project;
+    }
 
-	/**
-	 * Access parent class.
-	 *
-	 * @return Project
-	 */
-	public function project()
-	{
-		return $this->project;
-	}
+    /**
+     * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/edit-list.html
+     * @param array $body
+     * @return array
+     */
+    public function edit($body)
+    {
+        return $this->client()->put(
+            "list/{$this->id()}",
+            $body
+        );
+    }
 
-	/**
-	 * @param Project $project
-	 */
-	public function setProject(Project $project)
-	{
-		$this->project = $project;
-	}
+    /**
+     * @return int
+     */
+    public function id()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/edit-list.html
-	 * @param array $body
-	 * @return array
-	 */
-	public function edit($body)
-	{
-		return $this->client()->put(
-			"list/{$this->id()}",
-			$body
-		);
-	}
+    /**
+     * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
+     * @param array $body
+     * @return array
+     */
+    public function createTask($body)
+    {
+        return $this->client()->post(
+            "list/{$this->id()}/task",
+            $body
+        );
+    }
 
-	/**
-	 * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
-	 * @param array $body
-	 * @return array
-	 */
-	public function createTask($body)
-	{
-		return $this->client()->post(
-			"list/{$this->id()}/task",
-			$body
-		);
-	}
+    /**
+     * @return int
+     */
+    public function teamId()
+    {
+        return $this->project()->space()->team()->id();
+    }
 
-	/**
-	 * @return int
-	 */
-	public function teamId()
-	{
-		return $this->project()->space()->team()->id();
-	}
+    /**
+     * Access parent class.
+     *
+     * @return Project
+     */
+    public function project()
+    {
+        return $this->project;
+    }
 
-	/**
-	 * @return array
-	 */
-	protected function taskFindParams()
-	{
-		return ['list_ids' => [$this->id()]];
-	}
+    /**
+     * @return array
+     */
+    protected function taskFindParams()
+    {
+        return ['list_ids' => [$this->id()]];
+    }
 
-	/**
-	 * @param array $array
-	 */
-	protected function fromArray($array)
-	{
-		$this->id = $array['id'];
-		$this->name = $array['name'];
-	}
+    /**
+     * @param array $array
+     */
+    protected function fromArray($array)
+    {
+        $this->id = $array['id'];
+        $this->name = $array['name'];
+    }
 }
