@@ -9,7 +9,7 @@ Fork difference:
 
 ## Install
 ```
-composer require "Eduard9969/clickup-php"
+composer require Eduard9969/clickup-php
 ```
 
 ## Usage
