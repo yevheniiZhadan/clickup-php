@@ -21,6 +21,9 @@ class Team extends AbstractObject
     /* @var TeamMemberCollection $members */
     private $members;
 
+    /* @var TeamRoleCollection $roles */
+    private $roles;
+
     /* @var SpaceCollection|null $spaces */
     private $spaces = null;
 
@@ -104,9 +107,10 @@ class Team extends AbstractObject
         $this->name = $array['name'];
         $this->color = $array['color'];
         $this->avatar = $array['avatar'];
-        $this->members = new TeamMemberCollection(
-            $this,
-            $array['members']
-        );
+        $this->members = new TeamMemberCollection($this, $array['members']);
+
+        if(isset($array['roles'])) {
+            $this->roles = new TeamRoleCollection($this, $array['roles']);
+        }
     }
 }

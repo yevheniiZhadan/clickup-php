@@ -36,7 +36,7 @@ class Task extends AbstractObject
     /* @var TeamMemberCollection $assignees */
     private $assignees;
 
-    /* @var array $tags */
+    /* @var TagCollection $tags */
     private $tags;
 
     /* @var string|null $parentTaskId */
@@ -60,16 +60,19 @@ class Task extends AbstractObject
     /* @var string $timeEstimate */
     private $timeEstimate;
 
+    /** @var CustomFieldCollection */
+    private $customFields;
+
     /* @var int $taskListId */
     private $taskListId;
 
     /* @var TaskList|null $taskList */
     private $taskList = null;
 
-    /* @var int $projectId */
-    private $projectId;
+    /* @var int $folderId */
+    private $folderId;
 
-    /* @var Project|null $project */
+    /* @var Folder|null $project */
     private $project = null;
 
     /* @var int $spaceId */
@@ -198,12 +201,12 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return Project
+     * @return Folder
      */
     public function project()
     {
         if(is_null($this->project)) {
-            $this->project = $this->space()->project($this->projectId());
+            $this->project = $this->space()->folder($this->folderId());
         }
         return $this->project;
     }
@@ -243,9 +246,9 @@ class Task extends AbstractObject
         return $this->spaceId;
     }
 
-    public function projectId()
+    public function folderId()
     {
-        return $this->projectId;
+        return $this->folderId;
     }
 
     public function taskListId()
@@ -304,8 +307,6 @@ class Task extends AbstractObject
             $array['assignees']
         );
 
-        // TODO TagCollection
-        $this->tags = $array['tags'];
         $this->parentTaskId = $array['parent'];
         $this->priority = $array['priority'];
         $this->dueDate = $this->getDate($array, 'due_date');
@@ -313,9 +314,17 @@ class Task extends AbstractObject
         $this->points = isset($array['point']) ? $array['point'] : null;
         $this->timeEstimate = isset($array['time_estimate']) ? $array['time_estimate'] : null;
         $this->taskListId = $array['list']['id'];
-        $this->projectId = $array['project']['id'];
+        $this->folderId = $array['folder']['id'];
         $this->spaceId = $array['space']['id'];
         $this->url = $array['url'];
+
+        if(isset($array['tags'])) {
+            $this->tags = new TagCollection($this->client(), $array['tags']);
+        }
+
+        if(isset($array['custom_fields'])) {
+            $this->customFields = new CustomFieldCollection($this->client(), $array['custom_fields']);
+        }
     }
 
     /**

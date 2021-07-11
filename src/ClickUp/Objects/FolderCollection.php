@@ -3,12 +3,12 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Project   getByKey(int $projectId)
- * @method Project   getByName(string $projectName)
- * @method Project[] objects()
- * @method Project[] getIterator()
+ * @method Folder   getByKey(int $projectId)
+ * @method Folder   getByName(string $projectName)
+ * @method Folder[] objects()
+ * @method Folder[] getIterator()
  */
-class ProjectCollection extends AbstractObjectCollection
+class FolderCollection extends AbstractObjectCollection
 {
     public function __construct(Space $space, $array)
     {
@@ -26,6 +26,6 @@ class ProjectCollection extends AbstractObjectCollection
      */
     protected function objectClass()
     {
-        return Project::class;
+        return Folder::class;
     }
 }

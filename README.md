@@ -1,15 +1,32 @@
 # Fork for the clickup-php
 
+<p align="center"><img src="https://clickup.com/landing/images/integrations/clickup-api-beta.png"></p>
+
 Fork for the original repo [clickup-php](https://github.com/howyi/clickup-php) | Author: [howyi](https://github.com/howyi)
 
-A simple wrapper for [ClickUp](https://clickup.com/) API (v1-BETA).
+A simple wrapper for [ClickUp](https://clickup.com/api) API (v1-BETA).
 
 Fork difference:
 - Api update to version 2 (in progress)
+- Add retries when [rate limit](https://jsapi.apiary.io/apis/clickup20/introduction/rate-limiting.html) is reached (in the plans)
+- Add tmp cache for identical requests in a short time (in the plans) 
 
 ## Install
 ```
 composer require Eduard9969/clickup-php
+```
+
+The package is in development status. I don't want to add another copy of the fork to https://packagist.org/
+
+You can install the package using [VSC](https://getcomposer.org/doc/05-repositories.md#vcs) in your composer.json.
+Add the following code:
+```composer
+"repositories": [
+    {
+        "type": "vcs",
+        "url": "https://github.com/Eduard9969/clickup-php.git"
+    }
+]
 ```
 
 ## Usage
@@ -17,7 +34,7 @@ composer require Eduard9969/clickup-php
 ### Generate client
 ```php
 // create Client (required: API_TOKEN)
-$client = new ClickUp\Client('API_TOKEN', 'API_VERSION');
+$client = new ClickUp\Client('API_TOKEN');
 ```
 
 ### Get
@@ -50,27 +67,28 @@ $space = $team->spaces()->getByName('spaaaaace');
 // -> \ClickUp\Objects\Space
 
 
-// projects in space
-$space->projects()->objects();
-// -> \ClickUp\Objects\Project[]
+// folders in space
+$space->folders()->objects();
+// -> \ClickUp\Objects\Folder[]
 
-// project by project id
-$project = $space->project(11111);
-// project by name
-$project = $space->projects()->getByName('super cool project');
-// -> \ClickUp\Objects\Project
+// folder by folder id
+$folder = $space->folder(11111);
+// folder by name
+$folder = $space->folders()->getByName('super cool folder');
+// -> \ClickUp\Objects\Folder
 
-// lists in project
-$project->taskLists()->objects();
+// lists in folder
+$folder->taskLists()->objects();
 // -> \ClickUp\Objects\TaskList[]
 
 // list by list id
-$taskList = $project->taskList(9999);
+$taskList = $folder->taskList(9999);
 // list by name
-$taskList = $project->taskLists()->getByName('T A S K L I S T');
+$taskList = $folder->taskLists()->getByName('T A S K L I S T');
 // -> \ClickUp\Objects\TaskList
 
 // tasks by list
+// @see https://jsapi.apiary.io/apis/clickup20/reference/0/lists/update-list.html
 $tasks = $taskList->tasks()->objects();
 // -> \ClickUp\Objects\Task[]
 
@@ -78,18 +96,20 @@ $tasks = $taskList->tasks()->objects();
 $task = $taskList->task(3333);
 // -> \ClickUp\Objects\Task
 ```
+You can use `tasks` and `task` methods on the any level (`$team->tasks(); $space->tasks(); $folder->tasks(); etc`). But remember, 100 is the maximum number of items in the response, I recommend refining the research area.
 
 ### Create 
 ```php
 /**
- * create task list in project
- * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/create-list.html
+ * create task list in folder
+ * @see https://jsapi.apiary.io/apis/clickup20/reference/0/lists/create-list.html
+ * @see https://jsapi.apiary.io/apis/clickup20/reference/0/lists/create-folderless-list.html
  */
-$project->createTaskList(['name' => 'newTaskList']);
+$folder->createTaskList(['name' => 'newTaskList']);
 
 /**
  * create task in list
- * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
+ * @see https://jsapi.apiary.io/apis/clickup20/reference/0/tasks/create-task.html
  */
 $taskList->createTask(['name' => 'my second task']);
 ```
@@ -98,13 +118,13 @@ $taskList->createTask(['name' => 'my second task']);
 ```php
 /**
  * update task list
- * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/edit-list.html
+ * @see https://jsapi.apiary.io/apis/clickup20/reference/0/lists/update-list.html
  */
 $taskList->edit(['name' => 'renamed task list']);
 
 /**
  * update task
- * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/edit-task.html
+ * @see https://jsapi.apiary.io/apis/clickup20/reference/0/lists/update-list.html
  */
 $task->edit(['name' => 'renamed task']);
 ```

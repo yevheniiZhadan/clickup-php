@@ -2,6 +2,7 @@
 
 namespace ClickUp;
 
+use ClickUp\Objects\Space;
 use ClickUp\Objects\TaskFinder;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
@@ -32,12 +33,11 @@ class Client
      * Client constructor.
      *
      * @param $apiToken
-     * @param int $apiVersion
      */
-    public function __construct($apiToken, $apiVersion = 1)
+    public function __construct($apiToken)
     {
         $this->apiToken = $apiToken;
-        $this->apiVersion = $apiVersion;
+        $this->apiVersion = 2;
 
         $this->setGuzzleClient();
     }
@@ -92,15 +92,12 @@ class Client
     }
 
     /**
-     * @param int $teamId
+     * @param $teamId
      * @return Team
      */
     public function team($teamId)
     {
-        return new Team(
-            $this,
-            $this->get("team/$teamId")['team']
-        );
+        return $this->teams()->getByKey($teamId);
     }
 
     /**

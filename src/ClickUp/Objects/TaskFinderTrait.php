@@ -21,6 +21,15 @@ trait TaskFinderTrait
     }
 
     /**
+     * @param int $taskId
+     * @return Task
+     */
+    public function task($taskId)
+    {
+        return $this->taskFinder()->getByTaskId($taskId);
+    }
+
+    /**
      * @return TaskFinder
      */
     public function taskFinder()
@@ -47,14 +56,5 @@ trait TaskFinderTrait
     protected function taskFindParams()
     {
         return [];
-    }
-
-    /**
-     * @param int $taskId
-     * @return Task
-     */
-    public function task($taskId)
-    {
-        return $this->taskFinder()->getByTaskId($taskId);
     }
 }

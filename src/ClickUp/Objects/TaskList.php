@@ -12,8 +12,11 @@ class TaskList extends AbstractObject
     /* @var string $name */
     private $name;
 
-    /* @var Project $project */
-    private $project;
+    /* @var string $content */
+    private $content;
+
+    /* @var Folder $folder */
+    private $folder;
 
     /**
      * @return string
@@ -24,11 +27,11 @@ class TaskList extends AbstractObject
     }
 
     /**
-     * @param Project $project
+     * @param Folder $folder
      */
-    public function setProject(Project $project)
+    public function setFolder(Folder $folder)
     {
-        $this->project = $project;
+        $this->folder = $folder;
     }
 
     /**
@@ -70,17 +73,17 @@ class TaskList extends AbstractObject
      */
     public function teamId()
     {
-        return $this->project()->space()->team()->id();
+        return $this->folder()->space()->team()->id();
     }
 
     /**
      * Access parent class.
      *
-     * @return Project
+     * @return Folder
      */
-    public function project()
+    public function folder()
     {
-        return $this->project;
+        return $this->folder;
     }
 
     /**
@@ -96,7 +99,9 @@ class TaskList extends AbstractObject
      */
     protected function fromArray($array)
     {
-        $this->id = $array['id'];
-        $this->name = $array['name'];
+        // @todo Add another params
+        $this->id = isset($array['id']) ? $array['id'] : false;
+        $this->name = isset($array['name']) ? $array['name'] : false;
+        $this->content = isset($array['content']) ? $array['content'] : false;
     }
 }

@@ -2,7 +2,7 @@
 
 namespace ClickUp\Objects;
 
-class Project extends AbstractObject
+class Folder extends AbstractObject
 {
     use TaskFinderTrait;
 
@@ -11,6 +11,15 @@ class Project extends AbstractObject
 
     /* @var string $name */
     private $name;
+
+    /** @var int $orderIndex */
+    private $orderIndex;
+
+    /** @var bool $isHidden */
+    private $isHidden;
+
+    /** @var string $taskCount */
+    private $taskCount;
 
     /* @var TaskListCollection $taskLists */
     private $taskLists;
@@ -33,6 +42,30 @@ class Project extends AbstractObject
     public function name()
     {
         return $this->name;
+    }
+
+    /**
+     * @return int
+     */
+    public function orderIndex()
+    {
+        return $this->orderIndex;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isHidden()
+    {
+        return $this->isHidden;
+    }
+
+    /**
+     * @return string
+     */
+    public function taskCount()
+    {
+        return $this->taskCount;
     }
 
     /**
@@ -148,16 +181,14 @@ class Project extends AbstractObject
     {
         $this->id = $array['id'];
         $this->name = $array['name'];
-        $this->taskLists = new TaskListCollection(
-            $this,
-            $array['lists']
-        );
+        $this->orderIndex = isset($array['orderindex']) ? $array['orderindex'] : false;
+        $this->isHidden = isset($array['hidden']) ? $array['hidden'] : false;
+        $this->taskCount = isset($array['task_count']) ? $array['task_count'] : false;
+        $this->taskLists = new TaskListCollection($this, $array['lists']);
         $this->overrideStatuses = isset($array['override_statuses']) ? $array['override_statuses'] : false;
+
         if(isset($array['override_statuses']) and $array['override_statuses']) {
-            $this->statuses = new StatusCollection(
-                $this->client(),
-                $array['statuses']
-            );
+            $this->statuses = new StatusCollection($this->client(), $array['statuses']);
         }
     }
 }
