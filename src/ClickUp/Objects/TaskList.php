@@ -2,6 +2,12 @@
 
 namespace ClickUp\Objects;
 
+use ClickUp\Traits\TaskFinderTrait;
+
+/**
+ * Class TaskList
+ * @package ClickUp\Objects
+ */
 class TaskList extends AbstractObject
 {
     use TaskFinderTrait;
@@ -58,13 +64,16 @@ class TaskList extends AbstractObject
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
      * @param array $body
-     * @return array
+     * @return Task | null
      */
     public function createTask($body)
     {
-        return $this->client()->post(
-            "list/{$this->id()}/task",
-            $body
+        return new Task(
+            $this->client(),
+            $this->client()->post(
+                "list/{$this->id()}/task",
+                $body
+            )
         );
     }
 

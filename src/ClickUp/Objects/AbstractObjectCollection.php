@@ -7,6 +7,10 @@ use IteratorAggregate;
 use RuntimeException;
 use Traversable;
 
+/**
+ * Class AbstractObjectCollection
+ * @package ClickUp\Objects
+ */
 abstract class AbstractObjectCollection extends AbstractObject implements IteratorAggregate
 {
     /* @var AbstractObject[] $objects */

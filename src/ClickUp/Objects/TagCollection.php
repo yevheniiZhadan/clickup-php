@@ -2,6 +2,12 @@
 
 namespace ClickUp\Objects;
 
+/**
+ * @method Tag   getByKey(int $tagId)
+ * @method Tag   getByName(string $tagName)
+ * @method Tag[] objects()
+ * @method Tag[] getIterator()
+ */
 class TagCollection extends AbstractObjectCollection
 {
     /**

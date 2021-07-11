@@ -4,6 +4,10 @@ namespace ClickUp\Objects;
 
 use ClickUp\Client;
 
+/**
+ * Class AbstractObject
+ * @package ClickUp\Objects
+ */
 abstract class AbstractObject
 {
     /* @var Client $client */

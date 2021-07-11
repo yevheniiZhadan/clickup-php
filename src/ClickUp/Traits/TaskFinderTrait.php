@@ -1,9 +1,16 @@
 <?php
 
-namespace ClickUp\Objects;
+namespace ClickUp\Traits;
 
 use ClickUp\Client;
+use ClickUp\Objects\Task;
+use ClickUp\Objects\TaskCollection;
+use ClickUp\Objects\TaskFinder;
 
+/**
+ * Trait TaskFinderTrait
+ * @package ClickUp\Traits
+ */
 trait TaskFinderTrait
 {
     /**

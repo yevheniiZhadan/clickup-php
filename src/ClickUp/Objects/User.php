@@ -2,6 +2,10 @@
 
 namespace ClickUp\Objects;
 
+/**
+ * Class User
+ * @package ClickUp\Objects
+ */
 class User extends AbstractObject
 {
     /* @var int $id */

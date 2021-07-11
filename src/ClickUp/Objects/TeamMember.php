@@ -2,6 +2,10 @@
 
 namespace ClickUp\Objects;
 
+/**
+ * Class TeamMember
+ * @package ClickUp\Objects
+ */
 class TeamMember extends User
 {
     /* @var int $role */

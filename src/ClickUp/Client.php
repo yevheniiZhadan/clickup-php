@@ -8,6 +8,10 @@ use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
 use ClickUp\Objects\User;
 
+/**
+ * Class Client
+ * @package ClickUp
+ */
 class Client
 {
     /**

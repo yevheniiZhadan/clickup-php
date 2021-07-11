@@ -2,6 +2,12 @@
 
 namespace ClickUp\Objects;
 
+/**
+ * @method CustomField   getByKey(int $fieldId)
+ * @method CustomField   getByName(string $fieldName)
+ * @method CustomField[] objects()
+ * @method CustomField[] getIterator()
+ */
 class CustomFieldCollection extends AbstractObjectCollection
 {
     /**

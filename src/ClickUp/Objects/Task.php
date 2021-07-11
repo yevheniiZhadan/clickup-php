@@ -2,12 +2,18 @@
 
 namespace ClickUp\Objects;
 
+use ClickUp\Traits\DateImmutableTrait;
+use ClickUp\Traits\TaskFinderTrait;
 use DateTimeImmutable;
 use Exception;
 
+/**
+ * Class Task
+ * @package ClickUp\Objects
+ */
 class Task extends AbstractObject
 {
-    use TaskFinderTrait;
+    use TaskFinderTrait, DateImmutableTrait;
 
     /* @var string $id */
     private $id;
@@ -72,20 +78,23 @@ class Task extends AbstractObject
     /* @var int $folderId */
     private $folderId;
 
-    /* @var Folder|null $project */
-    private $project = null;
+    /* @var Folder|null $folder */
+    private $folder = null;
 
     /* @var int $spaceId */
     private $spaceId;
 
-    /* @var Space|null $project */
+    /* @var Space|null $space */
     private $space = null;
 
     /* @var int $teamId */
     private $teamId;
 
-    /* @var Team|null $project */
+    /* @var Team|null $team */
     private $team = null;
+
+    /* @var TaskCommentCollection|null $comment */
+    private $comment = null;
 
     /* @var string $url */
     private $url;
@@ -195,7 +204,7 @@ class Task extends AbstractObject
     public function taskList()
     {
         if(is_null($this->taskList)) {
-            $this->taskList = $this->project()->taskList($this->taskListId());
+            $this->taskList = $this->folder()->taskList($this->taskListId());
         }
         return $this->taskList;
     }
@@ -203,12 +212,12 @@ class Task extends AbstractObject
     /**
      * @return Folder
      */
-    public function project()
+    public function folder()
     {
-        if(is_null($this->project)) {
-            $this->project = $this->space()->folder($this->folderId());
+        if(is_null($this->folder)) {
+            $this->folder = $this->space()->folder($this->folderId());
         }
-        return $this->project;
+        return $this->folder;
     }
 
     /**
@@ -231,6 +240,21 @@ class Task extends AbstractObject
             $this->team = $this->client()->team($this->teamId());
         }
         return $this->team;
+    }
+
+    /**
+     * @return TaskCommentCollection|null
+     */
+    public function comment()
+    {
+        if(!is_null($this->comment)) {
+            $this->comment = new TaskCommentCollection(
+                $this,
+                $this->client()->get("task/{$this->id()}/comment")['comments']
+            );
+        }
+
+        return $this->comment;
     }
 
     public function teamId()
@@ -325,20 +349,5 @@ class Task extends AbstractObject
         if(isset($array['custom_fields'])) {
             $this->customFields = new CustomFieldCollection($this->client(), $array['custom_fields']);
         }
-    }
-
-    /**
-     * @param $array
-     * @param $key
-     * @return DateTimeImmutable|null
-     * @throws Exception
-     */
-    private function getDate($array, $key)
-    {
-        if(!isset($array[$key])) {
-            return null;
-        }
-        $unixTime = substr($array[$key], 0, 10);
-        return new DateTimeImmutable("@$unixTime");
     }
 }

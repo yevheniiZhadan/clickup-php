@@ -2,6 +2,10 @@
 
 namespace ClickUp\Objects;
 
+/**
+ * Class Status
+ * @package ClickUp\Objects
+ */
 class Status extends AbstractObject
 {
     /* @var int $id */

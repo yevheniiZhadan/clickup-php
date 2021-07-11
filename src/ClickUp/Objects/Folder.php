@@ -2,6 +2,12 @@
 
 namespace ClickUp\Objects;
 
+use ClickUp\Traits\TaskFinderTrait;
+
+/**
+ * Class Folder
+ * @package ClickUp\Objects
+ */
 class Folder extends AbstractObject
 {
     use TaskFinderTrait;
@@ -130,13 +136,16 @@ class Folder extends AbstractObject
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/create-list.html
      * @param array $body
-     * @return array
+     * @return TaskList|null
      */
     public function createTaskList($body)
     {
-        return $this->client()->post(
-            "project/{$this->id()}/list",
-            $body
+        return new TaskList(
+            $this->client(),
+            $this->client()->post(
+                "folder/{$this->id()}/list",
+                $body
+            )
         );
     }
 
@@ -171,7 +180,7 @@ class Folder extends AbstractObject
      */
     protected function taskFindParams()
     {
-        return ['project_ids' => [$this->id()]];
+        return ['folder_ids' => [$this->id()]];
     }
 
     /**

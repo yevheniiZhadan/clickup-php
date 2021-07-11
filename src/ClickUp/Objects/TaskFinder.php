@@ -5,6 +5,9 @@ namespace ClickUp\Objects;
 use ClickUp\Client;
 
 /**
+ * Class TaskFinder
+ * @package ClickUp\Objects
+ *
  * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/get-tasks.html
  */
 class TaskFinder

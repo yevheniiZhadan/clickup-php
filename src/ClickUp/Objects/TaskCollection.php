@@ -9,6 +9,7 @@ use ClickUp\Client;
  * @method Task   getByName(string $spaceName)
  * @method Task[] objects()
  * @method Task[] getIterator()
+ * @method Task   getByTaskId(string|null $parentTaskId)
  */
 class TaskCollection extends AbstractObjectCollection
 {

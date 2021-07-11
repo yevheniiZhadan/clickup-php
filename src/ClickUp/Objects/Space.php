@@ -2,6 +2,12 @@
 
 namespace ClickUp\Objects;
 
+use ClickUp\Traits\TaskFinderTrait;
+
+/**
+ * Class Space
+ * @package ClickUp\Objects
+ */
 class Space extends AbstractObject
 {
     use TaskFinderTrait;
@@ -63,12 +69,12 @@ class Space extends AbstractObject
     }
 
     /**
-     * @param $projectId
+     * @param $folderId
      * @return Folder
      */
-    public function folder($projectId)
+    public function folder($folderId)
     {
-        return $this->folders()->getByKey($projectId);
+        return $this->folders()->getByKey($folderId);
     }
 
     /**

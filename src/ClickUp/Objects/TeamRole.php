@@ -1,9 +1,11 @@
 <?php
 
-
 namespace ClickUp\Objects;
 
-
+/**
+ * Class TeamRole
+ * @package ClickUp\Objects
+ */
 class TeamRole extends AbstractObject
 {
     /** @var int $id */
@@ -17,6 +19,30 @@ class TeamRole extends AbstractObject
 
     /* @var Team $team */
     private $team;
+
+    /**
+     * @return int
+     */
+    public function id()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @return string
+     */
+    public function name()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCustom()
+    {
+        return $this->isCustom;
+    }
 
     /**
      * Access parent class.

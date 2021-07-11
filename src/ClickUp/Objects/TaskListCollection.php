@@ -10,11 +10,11 @@ namespace ClickUp\Objects;
  */
 class TaskListCollection extends AbstractObjectCollection
 {
-    public function __construct(Folder $project, $array)
+    public function __construct(Folder $folder, $array)
     {
-        parent::__construct($project->client(), $array);
+        parent::__construct($folder->client(), $array);
         foreach ($this as $taskList) {
-            $taskList->setFolder($project);
+            $taskList->setFolder($folder);
         }
     }
 

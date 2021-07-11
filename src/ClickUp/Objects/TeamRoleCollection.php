@@ -2,8 +2,12 @@
 
 namespace ClickUp\Objects;
 
-use ClickUp\Client;
-
+/**
+ * @method TeamRole   getByKey(int $roleId)
+ * @method TeamRole   getByName(string $roleName)
+ * @method TeamRole[] objects()
+ * @method TeamRole[] getIterator()
+ */
 class TeamRoleCollection extends AbstractObjectCollection
 {
     /**

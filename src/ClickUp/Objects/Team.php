@@ -2,6 +2,12 @@
 
 namespace ClickUp\Objects;
 
+use ClickUp\Traits\TaskFinderTrait;
+
+/**
+ * Class Team
+ * @package ClickUp\Objects
+ */
 class Team extends AbstractObject
 {
     use TaskFinderTrait;

@@ -2,6 +2,10 @@
 
 namespace ClickUp\Objects;
 
+/**
+ * Class CustomField
+ * @package ClickUp\Objects
+ */
 class CustomField extends AbstractObject
 {
     /** @var string $id */
