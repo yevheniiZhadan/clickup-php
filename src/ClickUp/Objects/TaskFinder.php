@@ -8,7 +8,7 @@ use ClickUp\Client;
  * Class TaskFinder
  * @package ClickUp\Objects
  *
- * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/get-tasks.html
+ * @see https://jsapi.apiary.io/apis/clickup20/reference/0/tasks/get-filtered-team-tasks.html
  */
 class TaskFinder
 {

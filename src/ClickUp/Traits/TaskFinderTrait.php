@@ -6,6 +6,7 @@ use ClickUp\Client;
 use ClickUp\Objects\Task;
 use ClickUp\Objects\TaskCollection;
 use ClickUp\Objects\TaskFinder;
+use Exception;
 
 /**
  * Trait TaskFinderTrait
@@ -16,6 +17,7 @@ trait TaskFinderTrait
     /**
      * @param bool $includeSubTask
      * @param bool $includeClosed
+     *
      * @return TaskCollection
      */
     public function tasks($includeSubTask = false, $includeClosed = false)
@@ -28,7 +30,36 @@ trait TaskFinderTrait
     }
 
     /**
+     * @param false $includeSubTask
+     * @param false $includeClosed
+     * @param array $prevTasks
+     * @param int $pageIndex
+     *
+     * @return array
+     */
+    public function tasksAll($includeSubTask = false, $includeClosed = false, $prevTasks = [], $pageIndex = 1)
+    {
+        $tasks = [];
+        try {
+            $tasks = $this
+                ->taskFinder()
+                ->includeSubTask($includeSubTask)
+                ->includeClosed($includeClosed)
+                ->addParams(['page' => $pageIndex++])
+                ->getCollection()
+                ->objects();
+        } catch (Exception $exception) { }
+
+        if(!empty($tasks)) {
+            $tasks = $this->tasksAll($includeSubTask, $includeClosed, $tasks, $pageIndex);
+        }
+
+        return array_merge($prevTasks, $tasks);
+    }
+
+    /**
      * @param int $taskId
+     *
      * @return Task
      */
     public function task($taskId)

@@ -26,4 +26,11 @@ trait DateImmutableTrait
         return new DateTimeImmutable("@$unixTime");
     }
 
+    /**
+     * @return float
+     */
+    private function getCurrentDate()
+    {
+        return round(microtime(true) * 1000);
+    }
 }
