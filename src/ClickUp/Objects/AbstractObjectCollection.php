@@ -68,6 +68,30 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
+     * @return int
+     */
+    public function count()
+    {
+        return count($this->objects);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isEmpty()
+    {
+        return $this->count() == 0;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isNotEmpty()
+    {
+        return !$this->isEmpty();
+    }
+
+    /**
      * @param array $array
      */
     protected function fromArray($array)

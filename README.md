@@ -95,8 +95,17 @@ $tasks = $taskList->tasks()->objects();
 // task by task id
 $task = $taskList->task(3333);
 // -> \ClickUp\Objects\Task
+
+// all tasks with chunks
+// tasksChunk get all tasks from the API and execute callback function (arg: $tasks->objects())
+$allTasks = [];
+$team->tasksChunk(false, false, function($tasks) use (&$allTasks) {
+    $allTasks = array_merge($tasks, $allTasks);
+    // return false; // break loop 
+});
+// -> true \ false
 ```
-You can use `tasks` and `task` methods on the any level (`$team->tasks(); $space->tasks(); $folder->tasks(); etc`). But remember, 100 is the maximum number of items in the response, I recommend refining the research area.
+You can use `tasks` and `task` methods on the any level (`$team->tasks(); $space->tasks(); $folder->tasks(); etc`). But remember, 100 is the maximum number of items in the response (not actual for chunk method), I recommend refining the research area.
 
 ### Create 
 ```php

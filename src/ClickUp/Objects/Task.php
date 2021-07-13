@@ -100,6 +100,14 @@ class Task extends AbstractObject
     private $url;
 
     /**
+     * @return int
+     */
+    public function id()
+    {
+        return $this->id;
+    }
+
+    /**
      * @return string
      */
     public function name()
@@ -107,51 +115,81 @@ class Task extends AbstractObject
         return $this->name;
     }
 
+    /**
+     * @return string
+     */
     public function description()
     {
         return $this->description;
     }
 
+    /**
+     * @return Status
+     */
     public function status()
     {
         return $this->status;
     }
 
+    /**
+     * @return string
+     */
     public function orderindex()
     {
         return $this->orderindex;
     }
 
+    /**
+     * @return DateTimeImmutable
+     */
     public function dateCreated()
     {
         return $this->dateCreated;
     }
 
+    /**
+     * @return DateTimeImmutable
+     */
     public function dateUpdated()
     {
         return $this->dateUpdated;
     }
 
+    /**
+     * @return TeamMember
+     */
     public function creator()
     {
         return $this->creator;
     }
 
+    /**
+     * @return TeamMemberCollection
+     */
     public function assignees()
     {
         return $this->assignees;
     }
 
+    /**
+     * @return TagCollection
+     */
     public function tags()
     {
         return $this->tags;
     }
 
+    /**
+     * @return bool
+     */
     public function isSubTask()
     {
         return !is_null($this->parentTaskId());
     }
 
+    /**
+     * @return string|null
+     */
     public function parentTaskId()
     {
         return $this->parentTaskId;
@@ -173,29 +211,52 @@ class Task extends AbstractObject
         return $this->parentTask;
     }
 
+    /**
+     * @return int
+     */
     public function priority()
     {
         return $this->priority;
     }
 
+    /**
+     * @return DateTimeImmutable
+     */
     public function dueDate()
     {
         return $this->dueDate;
     }
 
+    /**
+     * @return DateTimeImmutable
+     */
     public function startDate()
     {
         return $this->startDate;
     }
 
+    /**
+     * @return int
+     */
     public function points()
     {
         return $this->points;
     }
 
+    /**
+     * @return string
+     */
     public function timeEstimate()
     {
         return $this->timeEstimate;
+    }
+
+    /**
+     * @return CustomFieldCollection
+     */
+    public function customField()
+    {
+        return $this->customFields;
     }
 
     /**
@@ -257,6 +318,9 @@ class Task extends AbstractObject
         return $this->comment;
     }
 
+    /**
+     * @return int
+     */
     public function teamId()
     {
         return $this->teamId;
@@ -270,16 +334,25 @@ class Task extends AbstractObject
         return $this->spaceId;
     }
 
+    /**
+     * @return int
+     */
     public function folderId()
     {
         return $this->folderId;
     }
 
+    /**
+     * @return int
+     */
     public function taskListId()
     {
         return $this->taskListId;
     }
 
+    /**
+     * @param $teamId
+     */
     public function setTeamId($teamId)
     {
         $this->teamId = $teamId;
@@ -296,14 +369,6 @@ class Task extends AbstractObject
             "task/{$this->id()}",
             $body
         );
-    }
-
-    /**
-     * @return int
-     */
-    public function id()
-    {
-        return $this->id;
     }
 
     /**

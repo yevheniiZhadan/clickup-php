@@ -32,29 +32,41 @@ trait TaskFinderTrait
     /**
      * @param false $includeSubTask
      * @param false $includeClosed
-     * @param array $prevTasks
-     * @param int $pageIndex
+     * @param callable|null $callback
      *
-     * @return array
+     * @return bool
      */
-    public function tasksAll($includeSubTask = false, $includeClosed = false, $prevTasks = [], $pageIndex = 1)
+    public function tasksChunk($includeSubTask = false, $includeClosed = false, $callback = null)
     {
-        $tasks = [];
-        try {
-            $tasks = $this
-                ->taskFinder()
-                ->includeSubTask($includeSubTask)
-                ->includeClosed($includeClosed)
-                ->addParams(['page' => $pageIndex++])
-                ->getCollection()
-                ->objects();
-        } catch (Exception $exception) { }
+        $page = 0;
 
-        if(!empty($tasks)) {
-            $tasks = $this->tasksAll($includeSubTask, $includeClosed, $tasks, $pageIndex);
-        }
+        do {
+            $tasks = null;
+            try {
+                $tasks = $this
+                    ->taskFinder()
+                    ->includeSubTask($includeSubTask)
+                    ->includeClosed($includeClosed)
+                    ->addParams(['page' => $page])
+                    ->getCollection();
 
-        return array_merge($prevTasks, $tasks);
+                $issetTasks = $tasks->isNotEmpty();
+                $tasks = $tasks->objects();
+            } catch (Exception $exception) { }
+
+            if(empty($issetTasks)) {
+                break;
+            }
+
+            if($callback == null || $callback($tasks) == false) {
+                return false;
+            }
+
+            unset($tasks);
+            $page++;
+        } while (true);
+
+        return true;
     }
 
     /**
