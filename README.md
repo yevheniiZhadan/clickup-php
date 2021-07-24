@@ -8,10 +8,20 @@ A simple wrapper for [ClickUp](https://clickup.com/api) API (v1-BETA).
 
 Fork difference:
 - Api update to version 2 (in progress)
-- Add retries when [rate limit](https://jsapi.apiary.io/apis/clickup20/introduction/rate-limiting.html) is reached (in the plans)
+- Add retries when [rate limit](https://jsapi.apiary.io/apis/clickup20/introduction/rate-limiting.html) is reached (done, thanks [@osiset](https://github.com/osiset/Basic-Shopify-API))
 - Add tmp cache for identical requests in a short time (in the plans) 
 
-## Install
+## Table of Contents
+* [Installation](#installation)
+* [Usage](#usage)
+    * [Generate Client](#generate-client)
+    * [Get](#get)
+    * [Create](#create)
+    * [Update](#update)
+    * [Storage](#storage)
+* [LICENSE](#license)
+
+## Installation
 ```
 composer require Eduard9969/clickup-php
 ```
@@ -33,8 +43,11 @@ Add the following code:
  
 ### Generate client
 ```php
-// create Client (required: API_TOKEN)
-$client = new ClickUp\Client('API_TOKEN');
+// create Option (required: API_TOKEN)
+$options = new ClickUp\Options('API_TOKEN');
+
+// create Client (required: ClickUp\Options)
+$client = new ClickUp\Client($options);
 ```
 
 ### Get
@@ -137,3 +150,21 @@ $taskList->edit(['name' => 'renamed task list']);
  */
 $task->edit(['name' => 'renamed task']);
 ```
+
+### Storage
+By default retries when rate limit is reached execute via `Memory::Class`. You can use other storage (Implement the `StateStorage` interface) and use custom time deferrer (Implement the `TimeDeferrer` interface).
+
+```php
+// create Option (required: API_TOKEN)
+$options = new ClickUp\Options('API_TOKEN');
+
+// create StoreOptions (optional: StateStorage, StateStorage, TimeDeferrer)
+$storeOptions = new ClickUp\StoreOptions($redisTStorage, $redisLStorage, $timeDeferrer);
+
+// create Client (required: ClickUp\Options, optional: ClickUp\StoreOptions)
+$client = new ClickUp\Client($options, $storeOptions);
+```
+
+## LICENSE
+
+This project is released under the MIT [license](https://github.com/Eduard9969/clickup-php/blob/master/LICENSE).

@@ -1,24 +1,41 @@
 {
     "name": "eduard9969/clickup-php",
     "description": "Fork ClickUp API client (unofficial)",
-    "keywords": ["ClickUp", "click-up", "api"],
+    "keywords": [
+        "ClickUp",
+        "click-up",
+        "api"
+    ],
     "type": "library",
     "license": "MIT",
     "authors": [
         {
-            "name":  "Hayashi Takuya",
+            "name": "Hayashi Takuya",
             "email": "qrbys@outlook.com"
+        },
+        {
+            "name": "Eduard Samoilenko",
+            "email": "eduard9969@gmail.com",
+            "role": "Developer"
         }
     ],
-    "minimum-stability": "dev",
     "require": {
-        "php": ">=5.6",
-        "guzzlehttp/guzzle": "^6.3"
-    },
-    "autoload": {
-      "psr-4": { "ClickUp\\": "src/ClickUp/" }
+        "php": ">=7.2",
+        "guzzlehttp/guzzle": "^7.3",
+        "caseyamcl/guzzle_retry_middleware": "^2.3"
     },
     "require-dev": {
-        "psy/psysh": "^0.9.8"
+        "ergebnis/composer-normalize": "^2.15",
+        "psy/psysh": "^v0.10.8",
+        "friendsofphp/php-cs-fixer": "^3.0",
+        "phpstan/phpstan": "^0.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "ClickUp\\": "src/ClickUp/"
+        }
+    },
+    "scripts": {
+        "psysh": "@php ./vendor/bin/psysh"
     }
 }

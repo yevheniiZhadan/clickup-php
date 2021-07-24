@@ -2,11 +2,19 @@
 
 namespace ClickUp;
 
-use ClickUp\Objects\Space;
+use ClickUp\Middleware\AuthRequest;
+use ClickUp\Middleware\RateLimiting;
+use ClickUp\Middleware\UpdateApiLimits;
+use ClickUp\Middleware\UpdateRequestTime;
 use ClickUp\Objects\TaskFinder;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
 use ClickUp\Objects\User;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Client as GuzzleHttpClient;
+use GuzzleHttp\Utils;
+use GuzzleRetry\GuzzleRetryMiddleware;
 
 /**
  * Class Client
@@ -15,48 +23,114 @@ use ClickUp\Objects\User;
 class Client
 {
     /**
-     * @var \GuzzleHttp\Client
+     * @var GuzzleHttpClient
      */
     private $guzzleClient;
 
     /**
-     * Api token
+     * The handler stack.
      *
-     * @var string
+     * @var HandlerStack
      */
-    private $apiToken;
+    private $handlerStack;
 
     /**
-     * Api version
+     * Options
      *
-     * @var int
+     * @var Options
      */
-    private $apiVersion;
+    private $options;
+
+    /**
+     * Store options
+     *
+     * @var StoreOptions
+     */
+    private $storeOptions;
 
     /**
      * Client constructor.
      *
-     * @param $apiToken
+     * @param  Options  $options
+     * @param  StoreOptions|null  $storeOptions
      */
-    public function __construct($apiToken)
+    public function __construct(Options $options, ?StoreOptions $storeOptions = null)
     {
-        $this->apiToken = $apiToken;
-        $this->apiVersion = 2;
+        $this->setOptions($options);
+        $this->setStoreOptions($storeOptions ?? new StoreOptions());
 
         $this->setGuzzleClient();
     }
 
-    public function setGuzzleClient()
+    /**
+     * @return void
+     */
+    protected function setGuzzleClient()
     {
-        $this->guzzleClient = new \GuzzleHttp\Client([
-            'base_uri' => "https://api.clickup.com/api/v{$this->apiVersion}/",
-            'headers' => [
-                'Authorization' => $this->apiToken,
-                'Content-Type' => 'application/json'
-            ]
-        ]);
+        $this->handlerStack = HandlerStack::create($this->getOptions()->getGuzzleHandler());
+        $this->addMiddleware(new AuthRequest($this), 'request:auth')
+             ->addMiddleware(new UpdateApiLimits($this), 'rate:update')
+             ->addMiddleware(new UpdateRequestTime($this), 'time:update')
+             ->addMiddleware(GuzzleRetryMiddleware::factory(), 'request:retry')
+             ->addMiddleware(new RateLimiting($this), 'rate:limiting');
+
+        $this->getOptions()->setGuzzleOptions(
+            ['base_uri' => $this->getOptions()->getUriWithVersion()]
+        );
+
+        $this->guzzleClient = new GuzzleHttpClient(array_merge(
+            ['handler' => $this->handlerStack],
+            $this->getOptions()->getGuzzleOptions()
+        ));
     }
 
+    /**
+     * @param  Options  $options
+     */
+    public function setOptions(Options $options)
+    {
+        $this->options = $options;
+    }
+
+    /**
+     * @return Options
+     */
+    public function getOptions(): Options
+    {
+        return $this->options;
+    }
+
+    /**
+     * @param  StoreOptions  $storeOptions
+     */
+    public function setStoreOptions(StoreOptions $storeOptions)
+    {
+        $this->storeOptions = $storeOptions;
+    }
+
+    /**
+     * @return StoreOptions
+     */
+    public function getStoreOptions(): StoreOptions
+    {
+        return $this->storeOptions;
+    }
+
+    /**
+     * @param callable $callable
+     * @param  string  $name
+     *
+     * @return Client
+     */
+    public function addMiddleware(callable $callable, string $name = ''): Client
+    {
+        $this->handlerStack->push($callable, $name);
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
     public function client()
     {
         return $this;
@@ -64,30 +138,31 @@ class Client
 
     /**
      * @return User
+     * @throws GuzzleException
      */
-    public function user()
+    public function user(): User
     {
-        return new User(
-            $this,
-            $this->get('user')['user']
-        );
+        return new User($this, $this->get('user')['user']);
     }
 
     /**
-     * @param string $method
-     * @param array $params
+     * @param  string  $method
+     * @param  array  $params
+     *
      * @return mixed
+     * @throws GuzzleException
      */
-    public function get($method, $params = [])
+    public function get(string $method, array $params = [])
     {
         $response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
-        return \GuzzleHttp\json_decode($response->getBody(), true);
+        return Utils::jsonDecode($response->getBody(), true);
     }
 
     /**
      * @return TeamCollection
+     * @throws GuzzleException
      */
-    public function teams()
+    public function teams(): TeamCollection
     {
         return new TeamCollection(
             $this,
@@ -97,39 +172,52 @@ class Client
 
     /**
      * @param $teamId
+     *
      * @return Team
+     * @throws GuzzleException
      */
-    public function team($teamId)
+    public function team($teamId): Team
     {
         return $this->teams()->getByKey($teamId);
     }
 
     /**
-     * @param int $teamId
+     * @param  int  $teamId
+     *
      * @return TaskFinder
      */
-    public function taskFinder($teamId)
+    public function taskFinder(int $teamId): TaskFinder
     {
         return new TaskFinder($this, $teamId);
     }
 
     /**
-     * @param string $method
-     * @param array $body
+     * @param  string  $method
+     * @param  array  $body
+     *
      * @return mixed
+     * @throws GuzzleException
      */
-    public function post($method, $body = [])
+    public function post(string $method, array $body = [])
     {
-        return \GuzzleHttp\json_decode($this->guzzleClient->request('POST', $method, ['json' => $body])->getBody(), true);
+        return Utils::jsonDecode(
+            $this->guzzleClient->request('POST', $method, ['json' => $body])->getBody(),
+            true
+        );
     }
 
     /**
-     * @param string $method
-     * @param array $body
+     * @param  string  $method
+     * @param  array  $body
+     *
      * @return mixed
+     * @throws GuzzleException
      */
-    public function put($method, $body = [])
+    public function put(string $method, array $body = [])
     {
-        return \GuzzleHttp\json_decode($this->guzzleClient->request('PUT', $method, ['json' => $body])->getBody(), true);
+        return Utils::jsonDecode(
+            $this->guzzleClient->request('PUT', $method, ['json' => $body])->getBody(),
+            true
+        );
     }
 }
