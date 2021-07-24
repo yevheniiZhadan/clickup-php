@@ -254,7 +254,7 @@ class Task extends AbstractObject
     /**
      * @return CustomFieldCollection
      */
-    public function customField()
+    public function customFields()
     {
         return $this->customFields;
     }
