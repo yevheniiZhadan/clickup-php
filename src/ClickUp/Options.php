@@ -4,6 +4,7 @@ namespace ClickUp;
 
 /**
  * Class Option
+ *
  * @package ClickUp
  */
 class Options
@@ -63,6 +64,7 @@ class Options
 
     /**
      * Option constructor
+     *
      * @param $accessToken
      */
     public function __construct($accessToken)
@@ -87,17 +89,7 @@ class Options
      */
     public function getStoreKey(): ?string
     {
-        return substr(md5($this->accessToken . 'storage_key'), 0, 12);
-    }
-
-    /**
-     * Get Api Version
-     *
-     * @return int
-     */
-    public function getApiVersion(): int
-    {
-        return $this->apiVersion;
+        return substr(md5($this->accessToken.'storage_key'), 0, 12);
     }
 
     /**
@@ -108,6 +100,16 @@ class Options
     public function getUriWithVersion(): string
     {
         return "https://api.clickup.com/api/v{$this->getApiVersion()}/";
+    }
+
+    /**
+     * Get Api Version
+     *
+     * @return int
+     */
+    public function getApiVersion(): int
+    {
+        return $this->apiVersion;
     }
 
     /**
@@ -123,7 +125,7 @@ class Options
     /**
      * Set Guzzle Options
      *
-     * @param array $options
+     * @param  array  $options
      */
     public function setGuzzleOptions(array $options)
     {

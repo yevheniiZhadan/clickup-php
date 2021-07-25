@@ -4,7 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * @method User   getById(int $id)
- * @method User   getByName(string $username)
+ * @method User   getByName(string string $name)
  * @method User[] objects()
  * @method User[] getIterator()
  */
@@ -13,7 +13,7 @@ class UserCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function nameKey()
+    protected function nameKey(): string
     {
         return 'username';
     }
@@ -21,7 +21,7 @@ class UserCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return User::class;
     }

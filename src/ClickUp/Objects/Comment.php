@@ -4,9 +4,11 @@ namespace ClickUp\Objects;
 
 use ClickUp\Traits\DateImmutableTrait;
 use DateTimeImmutable;
+use Exception;
 
 /**
  * Class Comment
+ *
  * @package ClickUp\Objects
  */
 class Comment extends AbstractObject
@@ -31,7 +33,7 @@ class Comment extends AbstractObject
     /**
      * @return string
      */
-    public function id()
+    public function id(): string
     {
         return $this->id;
     }
@@ -39,7 +41,7 @@ class Comment extends AbstractObject
     /**
      * @return string
      */
-    public function commentText()
+    public function commentText(): string
     {
         return $this->commentText;
     }
@@ -47,7 +49,7 @@ class Comment extends AbstractObject
     /**
      * @return User
      */
-    public function user()
+    public function user(): User
     {
         return $this->user;
     }
@@ -55,7 +57,7 @@ class Comment extends AbstractObject
     /**
      * @return DateTimeImmutable
      */
-    public function date()
+    public function date(): DateTimeImmutable
     {
         return $this->date;
     }
@@ -63,21 +65,22 @@ class Comment extends AbstractObject
     /**
      * @return bool
      */
-    public function isResolved()
+    public function isResolved(): bool
     {
         return $this->isResolved;
     }
 
     /**
      * @param $array
-     * @throws \Exception
+     *
+     * @throws Exception
      */
     protected function fromArray($array)
     {
-        $this->id = isset($array['id']) ? $array['id'] : false;
-        $this->commentText = isset($array['comment_text']) ? $array['comment_text'] : false;
+        $this->id = $array['id'] ?? false;
+        $this->commentText = $array['comment_text'] ?? false;
         $this->user = isset($array['user']) ? new User($this->client(), $array['user']) : false;
-        $this->isResolved = isset($array['resolved']) ? $array['resolved'] : false;
+        $this->isResolved = $array['resolved'] ?? false;
         $this->date = isset($array['date']) ? $this->getDate($array, 'date') : false;
     }
 }

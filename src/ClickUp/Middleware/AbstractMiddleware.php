@@ -6,6 +6,7 @@ use ClickUp\Client;
 
 /**
  * Class AbstractMiddleware
+ *
  * @package ClickUp\Middleware
  */
 abstract class AbstractMiddleware
@@ -17,6 +18,7 @@ abstract class AbstractMiddleware
 
     /**
      * AbstractMiddleware constructor.
+     *
      * @param $client
      */
     public function __construct($client)

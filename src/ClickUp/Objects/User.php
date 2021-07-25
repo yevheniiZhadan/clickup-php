@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class User
+ *
  * @package ClickUp\Objects
  */
 class User extends AbstractObject
@@ -26,7 +27,7 @@ class User extends AbstractObject
     /**
      * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
@@ -34,7 +35,7 @@ class User extends AbstractObject
     /**
      * @return string
      */
-    public function username()
+    public function username(): string
     {
         return $this->username;
     }
@@ -42,7 +43,7 @@ class User extends AbstractObject
     /**
      * @return string
      */
-    public function color()
+    public function color(): string
     {
         return $this->color;
     }
@@ -50,7 +51,7 @@ class User extends AbstractObject
     /**
      * @return string
      */
-    public function profilePicture()
+    public function profilePicture(): string
     {
         return $this->profilePicture;
     }
@@ -58,13 +59,13 @@ class User extends AbstractObject
     /**
      * @return string|null
      */
-    public function initials()
+    public function initials(): ?string
     {
         return $this->initials;
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {
@@ -72,6 +73,6 @@ class User extends AbstractObject
         $this->username = $array['username'];
         $this->color = $array['color'];
         $this->profilePicture = $array['profilePicture'];
-        $this->initials = isset($array['initials']) ? $array['initials'] : null;
+        $this->initials = $array['initials'] ?? null;
     }
 }

@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class Priority
+ *
  * @package ClickUp\Objects
  */
 class Priority

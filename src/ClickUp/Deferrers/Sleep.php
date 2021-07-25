@@ -2,11 +2,14 @@
 
 namespace ClickUp\Deferrers;
 
+use ClickUp\Contracts\TimeDeferrer;
+
 /**
  * Class Sleep
+ *
  * @package ClickUp\Deferrers
  */
-class Sleep implements \ClickUp\Contracts\TimeDeferrer
+class Sleep implements TimeDeferrer
 {
     /**
      * @inheritDoc

@@ -3,7 +3,7 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Comment   getByKey(int $commentId)
+ * @method Comment   getByKey(int int $id)
  * @method Comment[] objects()
  * @method Comment[] getIterator()
  */
@@ -12,7 +12,7 @@ class CommentCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return Comment::class;
     }

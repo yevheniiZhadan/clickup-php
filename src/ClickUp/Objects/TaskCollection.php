@@ -5,8 +5,8 @@ namespace ClickUp\Objects;
 use ClickUp\Client;
 
 /**
- * @method Task   getByKey(int $spaceId)
- * @method Task   getByName(string $spaceName)
+ * @method Task   getByKey(int int $id)
+ * @method Task   getByName(string string $name)
  * @method Task[] objects()
  * @method Task[] getIterator()
  * @method Task   getByTaskId(string|null $parentTaskId)
@@ -24,7 +24,7 @@ class TaskCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return Task::class;
     }

@@ -3,9 +3,11 @@
 namespace ClickUp\Objects;
 
 use ClickUp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class TaskFinder
+ *
  * @package ClickUp\Objects
  *
  * @see https://jsapi.apiary.io/apis/clickup20/reference/0/tasks/get-filtered-team-tasks.html
@@ -22,10 +24,10 @@ class TaskFinder
     private $params = [];
 
     /**
-     * @param Client $client
-     * @param int $teamId
+     * @param  Client  $client
+     * @param  int  $teamId
      */
-    public function __construct(Client $client, $teamId)
+    public function __construct(Client $client, int $teamId)
     {
         $this->client = $client;
         $this->teamId = $teamId;
@@ -33,9 +35,11 @@ class TaskFinder
 
     /**
      * @param $taskId
+     *
      * @return Task
+     * @throws GuzzleException
      */
-    public function getByTaskId($taskId)
+    public function getByTaskId($taskId): Task
     {
         return $this
             ->includeSubTask()
@@ -47,8 +51,9 @@ class TaskFinder
 
     /**
      * @return TaskCollection
+     * @throws GuzzleException
      */
-    public function getCollection()
+    public function getCollection(): TaskCollection
     {
         return new TaskCollection(
             $this->client,
@@ -57,19 +62,19 @@ class TaskFinder
         );
     }
 
-    public function addParams($params)
+    public function addParams($params): TaskFinder
     {
         $this->params = array_merge_recursive($this->params, $params);
         return $this;
     }
 
-    public function includeClosed($include = true)
+    public function includeClosed($include = true): TaskFinder
     {
         $this->addParams(['include_closed' => $include]);
         return $this;
     }
 
-    public function includeSubTask($include = true)
+    public function includeSubTask($include = true): TaskFinder
     {
         $this->addParams(['subtasks' => $include]);
         return $this;

@@ -6,6 +6,7 @@ use ClickUp\Options;
 
 /**
  * Interface StateStorage
+ *
  * @package ClickUp\Contracts
  */
 interface StateStorage
@@ -15,22 +16,22 @@ interface StateStorage
      *
      * @return array
      */
-    public function all();
+    public function all(): array;
 
     /**
      * Get the values.
      *
-     * @param Options $options
+     * @param  Options  $options
      *
      * @return array
      */
-    public function get(Options $options);
+    public function get(Options $options): array;
 
     /**
      * Set the values.
      *
-     * @param array $values
-     * @param Options $options
+     * @param  array  $values
+     * @param  Options  $options
      *
      * @return void
      */
@@ -40,7 +41,7 @@ interface StateStorage
      * Set the values.
      *
      * @param $value
-     * @param Options $options
+     * @param  Options  $options
      *
      * @return void
      */
@@ -49,7 +50,7 @@ interface StateStorage
     /**
      * Remove all values.
      *
-     * @param Options $options
+     * @param  Options  $options
      *
      * @return void
      */

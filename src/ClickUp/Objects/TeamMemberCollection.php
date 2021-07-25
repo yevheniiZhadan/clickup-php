@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method TeamMember   getByKey(int $userId)
- * @method TeamMember   getByName(string $username)
+ * @method TeamMember   getByKey(int int $id)
+ * @method TeamMember   getByName(string string $name)
  * @method TeamMember[] objects()
  * @method TeamMember[] getIterator()
  */
@@ -26,13 +26,13 @@ class TeamMemberCollection extends UserCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return TeamMember::class;
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {

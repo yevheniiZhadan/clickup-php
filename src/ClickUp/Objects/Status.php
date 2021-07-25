@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class Status
+ *
  * @package ClickUp\Objects
  */
 class Status extends AbstractObject
@@ -23,7 +24,7 @@ class Status extends AbstractObject
     /**
      * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
@@ -31,7 +32,7 @@ class Status extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -39,7 +40,7 @@ class Status extends AbstractObject
     /**
      * @return string
      */
-    public function color()
+    public function color(): string
     {
         return $this->color;
     }
@@ -47,13 +48,13 @@ class Status extends AbstractObject
     /**
      * @return string
      */
-    public function type()
+    public function type(): string
     {
         return $this->type;
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {

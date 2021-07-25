@@ -9,6 +9,7 @@ use ClickUp\Store\Memory;
 
 /**
  * Class StoreOptions
+ *
  * @package ClickUp\Traits
  */
 class StoreOptions

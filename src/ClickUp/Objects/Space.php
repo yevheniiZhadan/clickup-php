@@ -3,9 +3,11 @@
 namespace ClickUp\Objects;
 
 use ClickUp\Traits\TaskFinderTrait;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Space
+ *
  * @package ClickUp\Objects
  */
 class Space extends AbstractObject
@@ -39,7 +41,7 @@ class Space extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -47,7 +49,7 @@ class Space extends AbstractObject
     /**
      * @return bool
      */
-    public function isPrivate()
+    public function isPrivate(): bool
     {
         return $this->isPrivate;
     }
@@ -55,7 +57,7 @@ class Space extends AbstractObject
     /**
      * @return StatusCollection
      */
-    public function statuses()
+    public function statuses(): StatusCollection
     {
         return $this->statuses;
     }
@@ -63,26 +65,29 @@ class Space extends AbstractObject
     /**
      * @return array
      */
-    public function clickApps()
+    public function clickApps(): array
     {
         return $this->clickApps;
     }
 
     /**
      * @param $folderId
+     *
      * @return Folder
+     * @throws GuzzleException
      */
-    public function folder($folderId)
+    public function folder($folderId): Folder
     {
         return $this->folders()->getByKey($folderId);
     }
 
     /**
      * @return FolderCollection
+     * @throws GuzzleException
      */
-    public function folders()
+    public function folders(): ?FolderCollection
     {
-        if(is_null($this->folders)) {
+        if (is_null($this->folders)) {
             $this->folders = new FolderCollection(
                 $this,
                 $this->client()->get("space/{$this->id()}/folder")['folders']
@@ -94,13 +99,13 @@ class Space extends AbstractObject
     /**
      * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
 
     /**
-     * @param Team $team
+     * @param  Team  $team
      */
     public function setTeam(Team $team)
     {
@@ -110,7 +115,7 @@ class Space extends AbstractObject
     /**
      * @return int
      */
-    public function teamId()
+    public function teamId(): int
     {
         return $this->team()->id();
     }
@@ -120,7 +125,7 @@ class Space extends AbstractObject
      *
      * @return Team
      */
-    public function team()
+    public function team(): Team
     {
         return $this->team;
     }
@@ -128,13 +133,13 @@ class Space extends AbstractObject
     /**
      * @return array
      */
-    protected function taskFindParams()
+    protected function taskFindParams(): array
     {
         return ['space_ids' => [$this->id()]];
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {
@@ -143,16 +148,16 @@ class Space extends AbstractObject
         $this->isPrivate = $array['private'];
         $this->statuses = new StatusCollection($this->client(), $array['statuses']);
         $this->clickApps = [
-            'multiple_assignees' => isset($array['multiple_assignees']) ? $array['multiple_assignees'] : false,
-            'due_dates' => isset($array['features']['due_dates']['enabled']) ? $array['features']['due_dates']['enabled'] : false,
-            'time_tracking' => isset($array['features']['time_tracking']['enabled']) ? $array['features']['time_tracking']['enabled'] : false,
-            'tags' => isset($array['features']['tags']['enabled']) ? $array['features']['tags']['enabled'] : false,
-            'time_estimates' => isset($array['features']['time_estimates']['enabled']) ? $array['features']['time_estimates']['enabled'] : false,
-            'checklists' => isset($array['features']['checklists']['enabled']) ? $array['features']['checklists']['enabled'] : false,
-            'custom_fields' => isset($array['features']['custom_fields']['enabled']) ? $array['features']['custom_fields']['enabled'] : false,
-            'remap_dependencies' => isset($array['features']['remap_dependencies']['enabled']) ? $array['features']['remap_dependencies']['enabled'] : false,
-            'dependency_warning' => isset($array['features']['dependency_warning']['enabled']) ? $array['features']['dependency_warning']['enabled'] : false,
-            'portfolios' => isset($array['features']['portfolios']['enabled']) ? $array['features']['portfolios']['enabled'] : false,
+            'multiple_assignees' => $array['multiple_assignees'] ?? false,
+            'due_dates' => $array['features']['due_dates']['enabled'] ?? false,
+            'time_tracking' => $array['features']['time_tracking']['enabled'] ?? false,
+            'tags' => $array['features']['tags']['enabled'] ?? false,
+            'time_estimates' => $array['features']['time_estimates']['enabled'] ?? false,
+            'checklists' => $array['features']['checklists']['enabled'] ?? false,
+            'custom_fields' => $array['features']['custom_fields']['enabled'] ?? false,
+            'remap_dependencies' => $array['features']['remap_dependencies']['enabled'] ?? false,
+            'dependency_warning' => $array['features']['dependency_warning']['enabled'] ?? false,
+            'portfolios' => $array['features']['portfolios']['enabled'] ?? false,
         ];
     }
 }

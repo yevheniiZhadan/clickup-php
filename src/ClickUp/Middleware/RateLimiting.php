@@ -6,6 +6,7 @@ use Psr\Http\Message\RequestInterface;
 
 /**
  * Class RateLimiting
+ *
  * @package ClickUp\Middleware
  */
 class RateLimiting extends AbstractMiddleware
@@ -13,7 +14,8 @@ class RateLimiting extends AbstractMiddleware
     /**
      * Invoke
      *
-     * @param callable $handler
+     * @param  callable  $handler
+     *
      * @return callable
      */
     public function __invoke(callable $handler): callable

@@ -10,14 +10,15 @@ use ClickUp\Objects\TaskFinder;
 use ClickUp\Objects\Team;
 use ClickUp\Objects\TeamCollection;
 use ClickUp\Objects\User;
+use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Client as GuzzleHttpClient;
 use GuzzleHttp\Utils;
 use GuzzleRetry\GuzzleRetryMiddleware;
 
 /**
  * Class Client
+ *
  * @package ClickUp
  */
 class Client
@@ -69,10 +70,10 @@ class Client
     {
         $this->handlerStack = HandlerStack::create($this->getOptions()->getGuzzleHandler());
         $this->addMiddleware(new AuthRequest($this), 'request:auth')
-             ->addMiddleware(new UpdateApiLimits($this), 'rate:update')
-             ->addMiddleware(new UpdateRequestTime($this), 'time:update')
-             ->addMiddleware(GuzzleRetryMiddleware::factory(), 'request:retry')
-             ->addMiddleware(new RateLimiting($this), 'rate:limiting');
+            ->addMiddleware(new UpdateApiLimits($this), 'rate:update')
+            ->addMiddleware(new UpdateRequestTime($this), 'time:update')
+            ->addMiddleware(GuzzleRetryMiddleware::factory(), 'request:retry')
+            ->addMiddleware(new RateLimiting($this), 'rate:limiting');
 
         $this->getOptions()->setGuzzleOptions(
             ['base_uri' => $this->getOptions()->getUriWithVersion()]
@@ -85,14 +86,6 @@ class Client
     }
 
     /**
-     * @param  Options  $options
-     */
-    public function setOptions(Options $options)
-    {
-        $this->options = $options;
-    }
-
-    /**
      * @return Options
      */
     public function getOptions(): Options
@@ -101,23 +94,15 @@ class Client
     }
 
     /**
-     * @param  StoreOptions  $storeOptions
+     * @param  Options  $options
      */
-    public function setStoreOptions(StoreOptions $storeOptions)
+    public function setOptions(Options $options)
     {
-        $this->storeOptions = $storeOptions;
+        $this->options = $options;
     }
 
     /**
-     * @return StoreOptions
-     */
-    public function getStoreOptions(): StoreOptions
-    {
-        return $this->storeOptions;
-    }
-
-    /**
-     * @param callable $callable
+     * @param  callable  $callable
      * @param  string  $name
      *
      * @return Client
@@ -129,9 +114,25 @@ class Client
     }
 
     /**
+     * @return StoreOptions
+     */
+    public function getStoreOptions(): StoreOptions
+    {
+        return $this->storeOptions;
+    }
+
+    /**
+     * @param  StoreOptions  $storeOptions
+     */
+    public function setStoreOptions(StoreOptions $storeOptions)
+    {
+        $this->storeOptions = $storeOptions;
+    }
+
+    /**
      * @return $this
      */
-    public function client()
+    public function client(): Client
     {
         return $this;
     }
@@ -149,13 +150,24 @@ class Client
      * @param  string  $method
      * @param  array  $params
      *
-     * @return mixed
+     * @return array|bool|float|int|object|string|null
      * @throws GuzzleException
      */
     public function get(string $method, array $params = [])
     {
         $response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
         return Utils::jsonDecode($response->getBody(), true);
+    }
+
+    /**
+     * @param $teamId
+     *
+     * @return Team
+     * @throws GuzzleException
+     */
+    public function team($teamId): Team
+    {
+        return $this->teams()->getByKey($teamId);
     }
 
     /**
@@ -168,17 +180,6 @@ class Client
             $this,
             $this->get('team')['teams']
         );
-    }
-
-    /**
-     * @param $teamId
-     *
-     * @return Team
-     * @throws GuzzleException
-     */
-    public function team($teamId): Team
-    {
-        return $this->teams()->getByKey($teamId);
     }
 
     /**
@@ -195,7 +196,7 @@ class Client
      * @param  string  $method
      * @param  array  $body
      *
-     * @return mixed
+     * @return array|bool|float|int|object|string|null
      * @throws GuzzleException
      */
     public function post(string $method, array $body = [])
@@ -210,7 +211,7 @@ class Client
      * @param  string  $method
      * @param  array  $body
      *
-     * @return mixed
+     * @return array|bool|float|int|object|string|null
      * @throws GuzzleException
      */
     public function put(string $method, array $body = [])

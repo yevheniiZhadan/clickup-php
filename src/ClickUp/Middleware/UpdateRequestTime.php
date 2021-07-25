@@ -14,7 +14,7 @@ class UpdateRequestTime extends AbstractMiddleware
     /**
      * Invoke
      *
-     * @param callable $handler
+     * @param  callable  $handler
      *
      * @return callable
      */

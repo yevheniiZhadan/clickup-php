@@ -3,9 +3,11 @@
 namespace ClickUp\Objects;
 
 use ClickUp\Traits\TaskFinderTrait;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Folder
+ *
  * @package ClickUp\Objects
  */
 class Folder extends AbstractObject
@@ -45,7 +47,7 @@ class Folder extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -53,7 +55,7 @@ class Folder extends AbstractObject
     /**
      * @return int
      */
-    public function orderIndex()
+    public function orderIndex(): int
     {
         return $this->orderIndex;
     }
@@ -61,7 +63,7 @@ class Folder extends AbstractObject
     /**
      * @return bool
      */
-    public function isHidden()
+    public function isHidden(): bool
     {
         return $this->isHidden;
     }
@@ -69,16 +71,17 @@ class Folder extends AbstractObject
     /**
      * @return string
      */
-    public function taskCount()
+    public function taskCount(): string
     {
         return $this->taskCount;
     }
 
     /**
-     * @param int $taskListId
+     * @param  int  $taskListId
+     *
      * @return TaskList
      */
-    public function taskList($taskListId)
+    public function taskList(int $taskListId): TaskList
     {
         return $this->taskLists()->getByKey($taskListId);
     }
@@ -86,7 +89,7 @@ class Folder extends AbstractObject
     /**
      * @return TaskListCollection
      */
-    public function taskLists()
+    public function taskLists(): TaskListCollection
     {
         return $this->taskLists;
     }
@@ -94,7 +97,7 @@ class Folder extends AbstractObject
     /**
      * @return bool
      */
-    public function overrideStatuses()
+    public function overrideStatuses(): bool
     {
         return $this->overrideStatuses;
     }
@@ -102,12 +105,12 @@ class Folder extends AbstractObject
     /**
      * @return StatusCollection
      */
-    public function statuses()
+    public function statuses(): ?StatusCollection
     {
         return $this->statuses;
     }
 
-    public function spaceId()
+    public function spaceId(): int
     {
         return $this->spaceId;
     }
@@ -118,7 +121,7 @@ class Folder extends AbstractObject
     }
 
     /**
-     * @param Space $space
+     * @param  Space  $space
      */
     public function setSpace(Space $space)
     {
@@ -126,7 +129,7 @@ class Folder extends AbstractObject
     }
 
     /**
-     * @param StatusCollection $statuses
+     * @param  StatusCollection  $statuses
      */
     public function setStatuses(StatusCollection $statuses)
     {
@@ -135,10 +138,13 @@ class Folder extends AbstractObject
 
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/create-list.html
-     * @param array $body
+     *
+     * @param  array  $body
+     *
      * @return TaskList|null
+     * @throws GuzzleException
      */
-    public function createTaskList($body)
+    public function createTaskList(array $body): ?TaskList
     {
         return new TaskList(
             $this->client(),
@@ -152,7 +158,7 @@ class Folder extends AbstractObject
     /**
      * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
@@ -160,7 +166,7 @@ class Folder extends AbstractObject
     /**
      * @return int
      */
-    public function teamId()
+    public function teamId(): int
     {
         return $this->space()->team()->id();
     }
@@ -170,7 +176,7 @@ class Folder extends AbstractObject
      *
      * @return Space
      */
-    public function space()
+    public function space(): Space
     {
         return $this->space;
     }
@@ -178,25 +184,25 @@ class Folder extends AbstractObject
     /**
      * @return array
      */
-    protected function taskFindParams()
+    protected function taskFindParams(): array
     {
         return ['folder_ids' => [$this->id()]];
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {
         $this->id = $array['id'];
         $this->name = $array['name'];
-        $this->orderIndex = isset($array['orderindex']) ? $array['orderindex'] : false;
-        $this->isHidden = isset($array['hidden']) ? $array['hidden'] : false;
-        $this->taskCount = isset($array['task_count']) ? $array['task_count'] : false;
+        $this->orderIndex = $array['orderindex'] ?? false;
+        $this->isHidden = $array['hidden'] ?? false;
+        $this->taskCount = $array['task_count'] ?? false;
         $this->taskLists = new TaskListCollection($this, $array['lists']);
-        $this->overrideStatuses = isset($array['override_statuses']) ? $array['override_statuses'] : false;
+        $this->overrideStatuses = $array['override_statuses'] ?? false;
 
-        if(isset($array['override_statuses']) and $array['override_statuses']) {
+        if (isset($array['override_statuses']) and $array['override_statuses']) {
             $this->statuses = new StatusCollection($this->client(), $array['statuses']);
         }
     }

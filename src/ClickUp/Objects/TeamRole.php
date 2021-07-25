@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class TeamRole
+ *
  * @package ClickUp\Objects
  */
 class TeamRole extends AbstractObject
@@ -23,7 +24,7 @@ class TeamRole extends AbstractObject
     /**
      * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
@@ -31,7 +32,7 @@ class TeamRole extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -39,7 +40,7 @@ class TeamRole extends AbstractObject
     /**
      * @return bool
      */
-    public function isCustom()
+    public function isCustom(): bool
     {
         return $this->isCustom;
     }
@@ -49,13 +50,13 @@ class TeamRole extends AbstractObject
      *
      * @return Team
      */
-    public function team()
+    public function team(): Team
     {
         return $this->team;
     }
 
     /**
-     * @param Team $team
+     * @param  Team  $team
      */
     public function setTeam(Team $team)
     {
@@ -67,8 +68,8 @@ class TeamRole extends AbstractObject
      */
     protected function fromArray($array)
     {
-        $this->id = isset($array['id']) ? $array['id'] : false;
-        $this->name = isset($array['name']) ? $array['name'] : false;
-        $this->isCustom = isset($array['custom']) ? $array['custom'] : false;
+        $this->id = $array['id'] ?? false;
+        $this->name = $array['name'] ?? false;
+        $this->isCustom = $array['custom'] ?? false;
     }
 }

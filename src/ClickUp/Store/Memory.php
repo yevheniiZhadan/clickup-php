@@ -7,6 +7,7 @@ use ClickUp\Options;
 
 /**
  * Class Memory
+ *
  * @package ClickUp\Store
  */
 class Memory implements StateStorage
@@ -27,7 +28,7 @@ class Memory implements StateStorage
     /**
      * @inheritDoc
      */
-    public function get(Options $options)
+    public function get(Options $options): array
     {
         return $this->container[$options->getStoreKey()] ?? [];
     }

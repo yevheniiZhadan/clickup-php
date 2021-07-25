@@ -9,6 +9,7 @@ use Traversable;
 
 /**
  * Class AbstractObjectCollection
+ *
  * @package ClickUp\Objects
  */
 abstract class AbstractObjectCollection extends AbstractObject implements IteratorAggregate
@@ -17,26 +18,28 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     protected $objects;
 
     /**
-     * @param int $id
+     * @param  int  $id
+     *
      * @return AbstractObject
      */
-    public function getByKey($id)
+    public function getByKey(int $id): AbstractObject
     {
-        if(!isset($this->objects[$id])) {
+        if (!isset($this->objects[$id])) {
             throw new RuntimeException("id:$id not exist.");
         }
         return $this->objects[$id];
     }
 
     /**
-     * @param string $name
+     * @param  string  $name
+     *
      * @return AbstractObject
      */
-    public function getByName($name)
+    public function getByName(string $name): AbstractObject
     {
         $nameKey = $this->nameKey();
         foreach ($this as $value) {
-            if($name === $value->$nameKey()) {
+            if ($name === $value->$nameKey()) {
                 return $value;
             }
         }
@@ -46,7 +49,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     /**
      * @return string
      */
-    protected function nameKey()
+    protected function nameKey(): string
     {
         return 'name';
     }
@@ -62,37 +65,37 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     /**
      * @return AbstractObject[]
      */
-    public function objects()
+    public function objects(): array
     {
         return $this->objects;
     }
 
     /**
-     * @return int
-     */
-    public function count()
-    {
-        return count($this->objects);
-    }
-
-    /**
      * @return bool
      */
-    public function isEmpty()
-    {
-        return $this->count() == 0;
-    }
-
-    /**
-     * @return bool
-     */
-    public function isNotEmpty()
+    public function isNotEmpty(): bool
     {
         return !$this->isEmpty();
     }
 
     /**
-     * @param array $array
+     * @return bool
+     */
+    public function isEmpty(): bool
+    {
+        return $this->count() == 0;
+    }
+
+    /**
+     * @return int
+     */
+    public function count(): int
+    {
+        return count($this->objects);
+    }
+
+    /**
+     * @param  array  $array
      */
     protected function fromArray($array)
     {
@@ -108,12 +111,12 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     /**
      * @return string
      */
-    abstract protected function objectClass();
+    abstract protected function objectClass(): string;
 
     /**
      * @return string
      */
-    protected function key()
+    protected function key(): string
     {
         return 'id';
     }

@@ -7,20 +7,23 @@ use ClickUp\Objects\Task;
 use ClickUp\Objects\TaskCollection;
 use ClickUp\Objects\TaskFinder;
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Trait TaskFinderTrait
+ *
  * @package ClickUp\Traits
  */
 trait TaskFinderTrait
 {
     /**
-     * @param bool $includeSubTask
-     * @param bool $includeClosed
+     * @param  bool  $includeSubTask
+     * @param  bool  $includeClosed
      *
      * @return TaskCollection
+     * @throws GuzzleException
      */
-    public function tasks($includeSubTask = false, $includeClosed = false)
+    public function tasks(bool $includeSubTask = false, bool $includeClosed = false): TaskCollection
     {
         return $this
             ->taskFinder()
@@ -30,13 +33,43 @@ trait TaskFinderTrait
     }
 
     /**
-     * @param false $includeSubTask
-     * @param false $includeClosed
-     * @param callable|null $callback
+     * @return TaskFinder
+     */
+    public function taskFinder(): TaskFinder
+    {
+        return (new TaskFinder(
+            $this->client(),
+            $this->teamId()
+        ))->addParams($this->taskFindParams());
+    }
+
+    /**
+     * @return Client
+     */
+    abstract public function client(): Client;
+
+    /**
+     * @return int
+     */
+    abstract public function teamId(): int;
+
+    /**
+     * @return array
+     */
+    protected function taskFindParams(): array
+    {
+        return [];
+    }
+
+    /**
+     * @param  false  $includeSubTask
+     * @param  false  $includeClosed
+     * @param  callable|null  $callback
      *
      * @return bool
+     * @throws GuzzleException
      */
-    public function tasksChunk($includeSubTask = false, $includeClosed = false, $callback = null)
+    public function tasksChunk(bool $includeSubTask = false, bool $includeClosed = false, callable $callback = null): bool
     {
         $page = 0;
 
@@ -52,13 +85,14 @@ trait TaskFinderTrait
 
                 $issetTasks = $tasks->isNotEmpty();
                 $tasks = $tasks->objects();
-            } catch (Exception $exception) { }
+            } catch (Exception $exception) {
+            }
 
-            if(empty($issetTasks)) {
+            if (empty($issetTasks)) {
                 break;
             }
 
-            if($callback == null || $callback($tasks) == false) {
+            if ($callback == null || $callback($tasks) == false) {
                 return false;
             }
 
@@ -70,41 +104,13 @@ trait TaskFinderTrait
     }
 
     /**
-     * @param int $taskId
+     * @param  int  $taskId
      *
      * @return Task
+     * @throws GuzzleException
      */
-    public function task($taskId)
+    public function task(int $taskId): Task
     {
         return $this->taskFinder()->getByTaskId($taskId);
-    }
-
-    /**
-     * @return TaskFinder
-     */
-    public function taskFinder()
-    {
-        return (new TaskFinder(
-            $this->client(),
-            $this->teamId()
-        ))->addParams($this->taskFindParams());
-    }
-
-    /**
-     * @return Client
-     */
-    abstract public function client();
-
-    /**
-     * @return int
-     */
-    abstract public function teamId();
-
-    /**
-     * @return array
-     */
-    protected function taskFindParams()
-    {
-        return [];
     }
 }

@@ -2,7 +2,6 @@
 
 namespace ClickUp\Middleware;
 
-use ClickUp\Client;
 use ClickUp\Options;
 use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
@@ -30,7 +29,7 @@ class UpdateApiLimits extends AbstractMiddleware
 
             return $promise->then(
                 function (ResponseInterface $response) use ($self) {
-                    $rateLimitTotal     = $response->getHeader(Options::HEADER_REST_API_LIMITS)[0];
+                    $rateLimitTotal = $response->getHeader(Options::HEADER_REST_API_LIMITS)[0];
                     $rateLimitRemaining = $response->getHeader(Options::HEADER_REST_API_LIMITS_REMAINING)[0];
 
                     if (!$rateLimitTotal || !$rateLimitRemaining) {

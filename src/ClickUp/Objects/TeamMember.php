@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class TeamMember
+ *
  * @package ClickUp\Objects
  */
 class TeamMember extends User
@@ -17,7 +18,7 @@ class TeamMember extends User
     /**
      * @return int
      */
-    public function role()
+    public function role(): int
     {
         return $this->role;
     }
@@ -27,13 +28,13 @@ class TeamMember extends User
      *
      * @return Team
      */
-    public function team()
+    public function team(): Team
     {
         return $this->team;
     }
 
     /**
-     * @param Team $team
+     * @param  Team  $team
      */
     public function setTeam(Team $team)
     {
@@ -41,7 +42,7 @@ class TeamMember extends User
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     public function fromArray($array)
     {

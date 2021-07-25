@@ -3,9 +3,11 @@
 namespace ClickUp\Objects;
 
 use ClickUp\Traits\TaskFinderTrait;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class TaskList
+ *
  * @package ClickUp\Objects
  */
 class TaskList extends AbstractObject
@@ -27,13 +29,13 @@ class TaskList extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
 
     /**
-     * @param Folder $folder
+     * @param  Folder  $folder
      */
     public function setFolder(Folder $folder)
     {
@@ -42,10 +44,13 @@ class TaskList extends AbstractObject
 
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/edit-list.html
-     * @param array $body
+     *
+     * @param  array  $body
+     *
      * @return array
+     * @throws GuzzleException
      */
-    public function edit($body)
+    public function edit(array $body): array
     {
         return $this->client()->put(
             "list/{$this->id()}",
@@ -56,17 +61,20 @@ class TaskList extends AbstractObject
     /**
      * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
 
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/create-task-in-list?console=1.html
-     * @param array $body
+     *
+     * @param  array  $body
+     *
      * @return Task | null
+     * @throws GuzzleException
      */
-    public function createTask($body)
+    public function createTask(array $body): ?Task
     {
         return new Task(
             $this->client(),
@@ -80,7 +88,7 @@ class TaskList extends AbstractObject
     /**
      * @return int
      */
-    public function teamId()
+    public function teamId(): int
     {
         return $this->folder()->space()->team()->id();
     }
@@ -90,7 +98,7 @@ class TaskList extends AbstractObject
      *
      * @return Folder
      */
-    public function folder()
+    public function folder(): Folder
     {
         return $this->folder;
     }
@@ -98,19 +106,19 @@ class TaskList extends AbstractObject
     /**
      * @return array
      */
-    protected function taskFindParams()
+    protected function taskFindParams(): array
     {
         return ['list_ids' => [$this->id()]];
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {
         // @todo Add another params
-        $this->id = isset($array['id']) ? $array['id'] : false;
-        $this->name = isset($array['name']) ? $array['name'] : false;
-        $this->content = isset($array['content']) ? $array['content'] : false;
+        $this->id = $array['id'] ?? false;
+        $this->name = $array['name'] ?? false;
+        $this->content = $array['content'] ?? false;
     }
 }

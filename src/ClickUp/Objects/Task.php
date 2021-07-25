@@ -6,9 +6,11 @@ use ClickUp\Traits\DateImmutableTrait;
 use ClickUp\Traits\TaskFinderTrait;
 use DateTimeImmutable;
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Task
+ *
  * @package ClickUp\Objects
  */
 class Task extends AbstractObject
@@ -100,17 +102,9 @@ class Task extends AbstractObject
     private $url;
 
     /**
-     * @return int
-     */
-    public function id()
-    {
-        return $this->id;
-    }
-
-    /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -118,7 +112,7 @@ class Task extends AbstractObject
     /**
      * @return string
      */
-    public function description()
+    public function description(): string
     {
         return $this->description;
     }
@@ -126,7 +120,7 @@ class Task extends AbstractObject
     /**
      * @return Status
      */
-    public function status()
+    public function status(): Status
     {
         return $this->status;
     }
@@ -134,7 +128,7 @@ class Task extends AbstractObject
     /**
      * @return string
      */
-    public function orderindex()
+    public function orderindex(): string
     {
         return $this->orderindex;
     }
@@ -142,7 +136,7 @@ class Task extends AbstractObject
     /**
      * @return DateTimeImmutable
      */
-    public function dateCreated()
+    public function dateCreated(): DateTimeImmutable
     {
         return $this->dateCreated;
     }
@@ -150,7 +144,7 @@ class Task extends AbstractObject
     /**
      * @return DateTimeImmutable
      */
-    public function dateUpdated()
+    public function dateUpdated(): DateTimeImmutable
     {
         return $this->dateUpdated;
     }
@@ -158,7 +152,7 @@ class Task extends AbstractObject
     /**
      * @return TeamMember
      */
-    public function creator()
+    public function creator(): TeamMember
     {
         return $this->creator;
     }
@@ -166,7 +160,7 @@ class Task extends AbstractObject
     /**
      * @return TeamMemberCollection
      */
-    public function assignees()
+    public function assignees(): TeamMemberCollection
     {
         return $this->assignees;
     }
@@ -174,7 +168,7 @@ class Task extends AbstractObject
     /**
      * @return TagCollection
      */
-    public function tags()
+    public function tags(): TagCollection
     {
         return $this->tags;
     }
@@ -182,7 +176,7 @@ class Task extends AbstractObject
     /**
      * @return bool
      */
-    public function isSubTask()
+    public function isSubTask(): bool
     {
         return !is_null($this->parentTaskId());
     }
@@ -190,20 +184,21 @@ class Task extends AbstractObject
     /**
      * @return string|null
      */
-    public function parentTaskId()
+    public function parentTaskId(): ?string
     {
         return $this->parentTaskId;
     }
 
     /**
      * @return Task|null
+     * @throws GuzzleException
      */
-    public function parentTask()
+    public function parentTask(): ?Task
     {
-        if(is_null($this->parentTaskId())) {
+        if (is_null($this->parentTaskId())) {
             return null;
         }
-        if(is_null($this->parentTask)) {
+        if (is_null($this->parentTask)) {
             $this->parentTask = $this
                 ->tasks()
                 ->getByTaskId($this->parentTaskId());
@@ -214,7 +209,7 @@ class Task extends AbstractObject
     /**
      * @return int
      */
-    public function priority()
+    public function priority(): int
     {
         return $this->priority;
     }
@@ -222,7 +217,7 @@ class Task extends AbstractObject
     /**
      * @return DateTimeImmutable
      */
-    public function dueDate()
+    public function dueDate(): DateTimeImmutable
     {
         return $this->dueDate;
     }
@@ -230,7 +225,7 @@ class Task extends AbstractObject
     /**
      * @return DateTimeImmutable
      */
-    public function startDate()
+    public function startDate(): DateTimeImmutable
     {
         return $this->startDate;
     }
@@ -238,7 +233,7 @@ class Task extends AbstractObject
     /**
      * @return int
      */
-    public function points()
+    public function points(): int
     {
         return $this->points;
     }
@@ -246,7 +241,7 @@ class Task extends AbstractObject
     /**
      * @return string
      */
-    public function timeEstimate()
+    public function timeEstimate(): string
     {
         return $this->timeEstimate;
     }
@@ -254,17 +249,18 @@ class Task extends AbstractObject
     /**
      * @return CustomFieldCollection
      */
-    public function customFields()
+    public function customFields(): CustomFieldCollection
     {
         return $this->customFields;
     }
 
     /**
      * @return TaskList
+     * @throws GuzzleException
      */
-    public function taskList()
+    public function taskList(): ?TaskList
     {
-        if(is_null($this->taskList)) {
+        if (is_null($this->taskList)) {
             $this->taskList = $this->folder()->taskList($this->taskListId());
         }
         return $this->taskList;
@@ -272,10 +268,11 @@ class Task extends AbstractObject
 
     /**
      * @return Folder
+     * @throws GuzzleException
      */
-    public function folder()
+    public function folder(): ?Folder
     {
-        if(is_null($this->folder)) {
+        if (is_null($this->folder)) {
             $this->folder = $this->space()->folder($this->folderId());
         }
         return $this->folder;
@@ -283,10 +280,11 @@ class Task extends AbstractObject
 
     /**
      * @return Space
+     * @throws GuzzleException
      */
-    public function space()
+    public function space(): ?Space
     {
-        if(is_null($this->space)) {
+        if (is_null($this->space)) {
             $this->space = $this->team()->space($this->spaceId());
         }
         return $this->space;
@@ -294,21 +292,55 @@ class Task extends AbstractObject
 
     /**
      * @return Team
+     * @throws GuzzleException
      */
-    public function team()
+    public function team(): ?Team
     {
-        if(is_null($this->team)) {
+        if (is_null($this->team)) {
             $this->team = $this->client()->team($this->teamId());
         }
         return $this->team;
     }
 
     /**
-     * @return TaskCommentCollection|null
+     * @return int
      */
-    public function comment()
+    public function teamId(): int
     {
-        if(!is_null($this->comment)) {
+        return $this->teamId;
+    }
+
+    /**
+     * @return int
+     */
+    public function spaceId(): int
+    {
+        return $this->spaceId;
+    }
+
+    /**
+     * @return int
+     */
+    public function folderId(): int
+    {
+        return $this->folderId;
+    }
+
+    /**
+     * @return int
+     */
+    public function taskListId(): int
+    {
+        return $this->taskListId;
+    }
+
+    /**
+     * @return TaskCommentCollection|null
+     * @throws GuzzleException
+     */
+    public function comment(): ?TaskCommentCollection
+    {
+        if (!is_null($this->comment)) {
             $this->comment = new TaskCommentCollection(
                 $this,
                 $this->client()->get("task/{$this->id()}/comment")['comments']
@@ -319,35 +351,11 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function teamId()
+    public function id(): string
     {
-        return $this->teamId;
-    }
-
-    /**
-     * @return int
-     */
-    public function spaceId()
-    {
-        return $this->spaceId;
-    }
-
-    /**
-     * @return int
-     */
-    public function folderId()
-    {
-        return $this->folderId;
-    }
-
-    /**
-     * @return int
-     */
-    public function taskListId()
-    {
-        return $this->taskListId;
+        return $this->id;
     }
 
     /**
@@ -360,10 +368,13 @@ class Task extends AbstractObject
 
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/edit-task.html
-     * @param array $body
+     *
+     * @param  array  $body
+     *
      * @return array
+     * @throws GuzzleException
      */
-    public function edit($body)
+    public function edit(array $body): array
     {
         return $this->client()->put(
             "task/{$this->id()}",
@@ -373,13 +384,14 @@ class Task extends AbstractObject
 
     /**
      * @param $array
+     *
      * @throws Exception
      */
     protected function fromArray($array)
     {
         $this->id = $array['id'];
         $this->name = $array['name'];
-        $this->description = (string)$array['text_content'];
+        $this->description = (string) $array['text_content'];
         $this->status = new Status(
             $this->client(),
             $array['status']
@@ -400,18 +412,18 @@ class Task extends AbstractObject
         $this->priority = $array['priority'];
         $this->dueDate = $this->getDate($array, 'due_date');
         $this->startDate = $this->getDate($array, 'start_date');
-        $this->points = isset($array['point']) ? $array['point'] : null;
-        $this->timeEstimate = isset($array['time_estimate']) ? $array['time_estimate'] : null;
+        $this->points = $array['point'] ?? null;
+        $this->timeEstimate = $array['time_estimate'] ?? null;
         $this->taskListId = $array['list']['id'];
         $this->folderId = $array['folder']['id'];
         $this->spaceId = $array['space']['id'];
         $this->url = $array['url'];
 
-        if(isset($array['tags'])) {
+        if (isset($array['tags'])) {
             $this->tags = new TagCollection($this->client(), $array['tags']);
         }
 
-        if(isset($array['custom_fields'])) {
+        if (isset($array['custom_fields'])) {
             $this->customFields = new CustomFieldCollection($this->client(), $array['custom_fields']);
         }
     }

@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method TeamRole   getByKey(int $roleId)
- * @method TeamRole   getByName(string $roleName)
+ * @method TeamRole   getByKey(int int $id)
+ * @method TeamRole   getByName(string string $name)
  * @method TeamRole[] objects()
  * @method TeamRole[] getIterator()
  */
@@ -13,7 +13,7 @@ class TeamRoleCollection extends AbstractObjectCollection
     /**
      * TeamRoleCollection constructor.
      *
-     * @param Team $team
+     * @param  Team  $team
      * @param $array
      */
     public function __construct(Team $team, $array)
@@ -23,7 +23,7 @@ class TeamRoleCollection extends AbstractObjectCollection
     }
 
     /**
-     * @param Team $team
+     * @param  Team  $team
      */
     private function setTeam(Team $team)
     {
@@ -35,7 +35,7 @@ class TeamRoleCollection extends AbstractObjectCollection
     /**
      * @inheritDoc
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return TeamRole::class;
     }

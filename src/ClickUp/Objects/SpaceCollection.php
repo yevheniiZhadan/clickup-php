@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Space   getByKey(int $spaceId)
- * @method Space   getByName(string $spaceName)
+ * @method Space   getByKey(int int $id)
+ * @method Space   getByName(string string $name)
  * @method Space[] objects()
  * @method Space[] getIterator()
  */
@@ -21,7 +21,7 @@ class SpaceCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return Space::class;
     }

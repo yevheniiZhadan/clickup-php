@@ -3,14 +3,14 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Status   getByKey(int $orderindex)
- * @method Status   getByName(string $statusName)
+ * @method Status   getByKey(int int $id)
+ * @method Status   getByName(string string $name)
  * @method Status[] objects()
  * @method Status[] getIterator()
  */
 class StatusCollection extends AbstractObjectCollection
 {
-    public function key()
+    public function key(): string
     {
         return 'orderindex';
     }
@@ -18,7 +18,7 @@ class StatusCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return Status::class;
     }

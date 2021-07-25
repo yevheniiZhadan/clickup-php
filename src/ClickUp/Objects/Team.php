@@ -3,9 +3,11 @@
 namespace ClickUp\Objects;
 
 use ClickUp\Traits\TaskFinderTrait;
+use GuzzleHttp\Exception\GuzzleException;
 
 /**
  * Class Team
+ *
  * @package ClickUp\Objects
  */
 class Team extends AbstractObject
@@ -36,7 +38,7 @@ class Team extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -44,7 +46,7 @@ class Team extends AbstractObject
     /**
      * @return string
      */
-    public function color()
+    public function color(): string
     {
         return $this->color;
     }
@@ -52,7 +54,7 @@ class Team extends AbstractObject
     /**
      * @return string
      */
-    public function avatar()
+    public function avatar(): string
     {
         return $this->avatar;
     }
@@ -60,26 +62,29 @@ class Team extends AbstractObject
     /**
      * @return TeamMemberCollection
      */
-    public function members()
+    public function members(): TeamMemberCollection
     {
         return $this->members;
     }
 
     /**
      * @param $spaceId
+     *
      * @return Space
+     * @throws GuzzleException
      */
-    public function space($spaceId)
+    public function space($spaceId): Space
     {
         return $this->spaces()->getByKey($spaceId);
     }
 
     /**
      * @return SpaceCollection
+     * @throws GuzzleException
      */
-    public function spaces()
+    public function spaces(): ?SpaceCollection
     {
-        if(is_null($this->spaces)) {
+        if (is_null($this->spaces)) {
             $this->spaces = new SpaceCollection(
                 $this,
                 $this->client()->get("team/{$this->id()}/space")['spaces']
@@ -91,7 +96,7 @@ class Team extends AbstractObject
     /**
      * @return int
      */
-    public function id()
+    public function id(): int
     {
         return $this->id;
     }
@@ -99,13 +104,13 @@ class Team extends AbstractObject
     /**
      * @return int
      */
-    public function teamId()
+    public function teamId(): int
     {
         return $this->id();
     }
 
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {
@@ -115,7 +120,7 @@ class Team extends AbstractObject
         $this->avatar = $array['avatar'];
         $this->members = new TeamMemberCollection($this, $array['members']);
 
-        if(isset($array['roles'])) {
+        if (isset($array['roles'])) {
             $this->roles = new TeamRoleCollection($this, $array['roles']);
         }
     }

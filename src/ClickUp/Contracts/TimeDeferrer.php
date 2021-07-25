@@ -4,6 +4,7 @@ namespace ClickUp\Contracts;
 
 /**
  * Interface TimeDeferrer
+ *
  * @package ClickUp\Contracts
  */
 interface TimeDeferrer
@@ -18,7 +19,7 @@ interface TimeDeferrer
     /**
      * Sleep
      *
-     * @param float $microseconds
+     * @param  float  $microseconds
      *
      * @return mixed
      */

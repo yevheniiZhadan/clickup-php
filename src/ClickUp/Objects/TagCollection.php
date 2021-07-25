@@ -3,15 +3,15 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Tag   getByKey(int $tagId)
- * @method Tag   getByName(string $tagName)
+ * @method Tag   getByKey(int int $id)
+ * @method Tag   getByName(string string $name)
  * @method Tag[] objects()
  * @method Tag[] getIterator()
  */
 class TagCollection extends AbstractObjectCollection
 {
     /**
-     * @param array $array
+     * @param  array  $array
      */
     protected function fromArray($array)
     {
@@ -26,7 +26,7 @@ class TagCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return Tag::class;
     }

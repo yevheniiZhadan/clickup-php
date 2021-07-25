@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class TaskComment
+ *
  * @package ClickUp\Objects
  */
 class TaskComment extends Comment
@@ -14,15 +15,15 @@ class TaskComment extends Comment
     /**
      * @return Task
      */
-    public function task()
+    public function task(): Task
     {
         return $this->task;
     }
 
     /**
-     * @param Task $task
+     * @param  Task  $task
      */
-    public function setTask($task)
+    public function setTask(Task $task)
     {
         $this->task = $task;
     }

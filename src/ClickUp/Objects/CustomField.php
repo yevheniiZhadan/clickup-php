@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class CustomField
+ *
  * @package ClickUp\Objects
  */
 class CustomField extends AbstractObject
@@ -29,7 +30,7 @@ class CustomField extends AbstractObject
     /**
      * @return string
      */
-    public function id()
+    public function id(): string
     {
         return $this->id;
     }
@@ -37,7 +38,7 @@ class CustomField extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -45,7 +46,7 @@ class CustomField extends AbstractObject
     /**
      * @return string
      */
-    public function type()
+    public function type(): string
     {
         return $this->type;
     }
@@ -53,7 +54,7 @@ class CustomField extends AbstractObject
     /**
      * @return bool
      */
-    public function isHideFromGuests()
+    public function isHideFromGuests(): bool
     {
         return $this->isHideFromGuests;
     }
@@ -61,7 +62,7 @@ class CustomField extends AbstractObject
     /**
      * @return string
      */
-    public function value()
+    public function value(): string
     {
         return $this->value;
     }
@@ -69,7 +70,7 @@ class CustomField extends AbstractObject
     /**
      * @return bool
      */
-    public function isRequired()
+    public function isRequired(): bool
     {
         return $this->isRequired;
     }
@@ -79,11 +80,11 @@ class CustomField extends AbstractObject
      */
     protected function fromArray($array)
     {
-        $this->id = isset($array['id']) ? $array['id'] : false;
-        $this->name = isset($array['name']) ? $array['name'] : false;
-        $this->type = isset($array['type']) ? $array['type'] : false;
-        $this->isHideFromGuests = isset($array['hide_from_guests']) ? $array['hide_from_guests'] : false;
-        $this->value = isset($array['value']) ? $array['value'] : false;
-        $this->isRequired = isset($array['required']) ? $array['required'] : false;
+        $this->id = $array['id'] ?? false;
+        $this->name = $array['name'] ?? false;
+        $this->type = $array['type'] ?? false;
+        $this->isHideFromGuests = $array['hide_from_guests'] ?? false;
+        $this->value = $array['value'] ?? false;
+        $this->isRequired = $array['required'] ?? false;
     }
 }

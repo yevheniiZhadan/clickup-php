@@ -4,6 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * Class Tag
+ *
  * @package ClickUp\Objects
  */
 class Tag extends AbstractObject
@@ -20,7 +21,7 @@ class Tag extends AbstractObject
     /**
      * @return string
      */
-    public function name()
+    public function name(): string
     {
         return $this->name;
     }
@@ -28,7 +29,7 @@ class Tag extends AbstractObject
     /**
      * @return string
      */
-    public function tagFg()
+    public function tagFg(): string
     {
         return $this->tag_fg;
     }
@@ -36,15 +37,15 @@ class Tag extends AbstractObject
     /**
      * @return string
      */
-    public function tagBg()
+    public function tagBg(): string
     {
         return $this->tag_bg;
     }
 
     protected function fromArray($array)
     {
-        $this->name = isset($array['name']) ? $array['name'] : false;
-        $this->tag_fg = isset($array['tag_fg']) ? $array['tag_fg'] : false;
-        $this->tag_bg = isset($array['tag_bg']) ? $array['tag_bg'] : false;
+        $this->name = $array['name'] ?? false;
+        $this->tag_fg = $array['tag_fg'] ?? false;
+        $this->tag_bg = $array['tag_bg'] ?? false;
     }
 }

@@ -3,7 +3,7 @@
 namespace ClickUp\Objects;
 
 /**
- * @method TaskComment   getByKey(int $commentId)
+ * @method TaskComment   getByKey(int int $id)
  * @method TaskComment[] objects()
  * @method TaskComment[] getIterator()
  */
@@ -12,7 +12,7 @@ class TaskCommentCollection extends CommentCollection
     /**
      * TaskCommentCollection constructor.
      *
-     * @param Task $task
+     * @param  Task  $task
      * @param $array
      */
     public function __construct(Task $task, $array)
@@ -26,7 +26,7 @@ class TaskCommentCollection extends CommentCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return TaskComment::class;
     }

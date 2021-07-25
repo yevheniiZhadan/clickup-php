@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Folder   getByKey(int $folderId)
- * @method Folder   getByName(string $folderName)
+ * @method Folder   getByKey(int int $id)
+ * @method Folder   getByName(string string $name)
  * @method Folder[] objects()
  * @method Folder[] getIterator()
  */
@@ -15,7 +15,7 @@ class FolderCollection extends AbstractObjectCollection
         parent::__construct($space->client(), $array);
         foreach ($this as $folder) {
             $folder->setSpace($space);
-            if($folder->overrideStatuses() === false) {
+            if ($folder->overrideStatuses() === false) {
                 $folder->setStatuses($space->statuses());
             }
         }
@@ -24,7 +24,7 @@ class FolderCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return Folder::class;
     }

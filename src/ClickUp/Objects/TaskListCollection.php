@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method TaskList   getByKey(int $listId)
- * @method TaskList   getByName(string $listName)
+ * @method TaskList   getByKey(int int $id)
+ * @method TaskList   getByName(string string $name)
  * @method TaskList[] objects()
  * @method TaskList[] getIterator()
  */
@@ -21,7 +21,7 @@ class TaskListCollection extends AbstractObjectCollection
     /**
      * @return string
      */
-    protected function objectClass()
+    protected function objectClass(): string
     {
         return TaskList::class;
     }

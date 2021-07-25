@@ -3,11 +3,11 @@
 namespace ClickUp\Middleware;
 
 use Exception;
-use GuzzleHttp\Psr7\Uri;
 use Psr\Http\Message\RequestInterface;
 
 /**
  * Class AuthRequest
+ *
  * @package ClickUp\Middleware
  */
 class AuthRequest extends AbstractMiddleware
@@ -15,7 +15,8 @@ class AuthRequest extends AbstractMiddleware
     /**
      * Invoke
      *
-     * @param callable $handler
+     * @param  callable  $handler
+     *
      * @return callable
      */
     public function __invoke(callable $handler)
