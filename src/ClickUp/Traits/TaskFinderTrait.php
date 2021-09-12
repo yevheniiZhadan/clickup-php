@@ -37,10 +37,7 @@ trait TaskFinderTrait
      */
     public function taskFinder(): TaskFinder
     {
-        return (new TaskFinder(
-            $this->client(),
-            $this->teamId()
-        ))->addParams($this->taskFindParams());
+        return (new TaskFinder($this->client(), $this->teamId()))->addParams($this->taskFindParams());
     }
 
     /**
@@ -104,12 +101,12 @@ trait TaskFinderTrait
     }
 
     /**
-     * @param  int  $taskId
+     * @param  string  $taskId
      *
      * @return Task
      * @throws GuzzleException
      */
-    public function task(int $taskId): Task
+    public function task(string $taskId): Task
     {
         return $this->taskFinder()->getByTaskId($taskId);
     }

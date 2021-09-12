@@ -15,7 +15,8 @@ use GuzzleHttp\Exception\GuzzleException;
  */
 class Task extends AbstractObject
 {
-    use TaskFinderTrait, DateImmutableTrait;
+    use TaskFinderTrait,
+        DateImmutableTrait;
 
     /* @var string $id */
     private $id;
@@ -376,10 +377,21 @@ class Task extends AbstractObject
      */
     public function edit(array $body): array
     {
-        return $this->client()->put(
-            "task/{$this->id()}",
-            $body
-        );
+        return $this->client()->put("task/{$this->id()}", $body);
+    }
+
+    /**
+     * @see https://jsapi.apiary.io/apis/clickup20/reference/0/custom-fields/set-custom-field-value.html
+     *
+     * @param  string $customFieldId
+     * @param  array  $body
+     *
+     * @return array|bool|float|int|object|string|null
+     * @throws GuzzleException
+     */
+    public function setCustomField(string $customFieldId, array $body)
+    {
+        return $this->client()->post("task/{$this->id()}/field/{$customFieldId}", $body);
     }
 
     /**

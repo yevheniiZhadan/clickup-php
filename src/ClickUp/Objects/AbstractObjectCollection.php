@@ -18,11 +18,11 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     protected $objects;
 
     /**
-     * @param  int  $id
+     * @param  string $id
      *
      * @return AbstractObject
      */
-    public function getByKey(int $id): AbstractObject
+    public function getByKey(string $id): AbstractObject
     {
         if (!isset($this->objects[$id])) {
             throw new RuntimeException("id:$id not exist.");

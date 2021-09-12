@@ -15,6 +15,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Utils;
 use GuzzleRetry\GuzzleRetryMiddleware;
+use Psr\Http\Message\ResponseInterface;
 
 /**
  * Class Client
@@ -147,19 +148,6 @@ class Client
     }
 
     /**
-     * @param  string  $method
-     * @param  array  $params
-     *
-     * @return array|bool|float|int|object|string|null
-     * @throws GuzzleException
-     */
-    public function get(string $method, array $params = [])
-    {
-        $response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
-        return Utils::jsonDecode($response->getBody(), true);
-    }
-
-    /**
      * @param $teamId
      *
      * @return Team
@@ -194,6 +182,19 @@ class Client
 
     /**
      * @param  string  $method
+     * @param  array  $params
+     *
+     * @return array|bool|float|int|object|string|null
+     * @throws GuzzleException
+     */
+    public function get(string $method, array $params = [])
+    {
+        $response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
+        return $this->decodeBody($response);
+    }
+
+    /**
+     * @param  string  $method
      * @param  array  $body
      *
      * @return array|bool|float|int|object|string|null
@@ -201,10 +202,8 @@ class Client
      */
     public function post(string $method, array $body = [])
     {
-        return Utils::jsonDecode(
-            $this->guzzleClient->request('POST', $method, ['json' => $body])->getBody(),
-            true
-        );
+        $response = $this->guzzleClient->request('POST', $method, ['json' => $body]);
+        return $this->decodeBody($response);
     }
 
     /**
@@ -216,9 +215,23 @@ class Client
      */
     public function put(string $method, array $body = [])
     {
-        return Utils::jsonDecode(
-            $this->guzzleClient->request('PUT', $method, ['json' => $body])->getBody(),
-            true
-        );
+        $response = $this->guzzleClient->request('PUT', $method, ['json' => $body]);
+        return $this->decodeBody($response);
+    }
+
+    /**
+     * Decode Body
+     *
+     * @param ResponseInterface $response
+     *
+     * @return mixed
+     */
+    public function decodeBody(ResponseInterface $response)
+    {
+        if (method_exists(Utils::class, 'jsonDecode')) {
+            return Utils::jsonDecode($response->getBody(), true);
+        } else {
+            return json_decode($response->getBody(), true);
+        }
     }
 }

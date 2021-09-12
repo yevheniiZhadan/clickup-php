@@ -21,7 +21,7 @@ class CustomField extends AbstractObject
     /** @var bool $hideFromGuests */
     private $isHideFromGuests;
 
-    /** @var string $value */
+    /** @var mixed $value */
     private $value;
 
     /** @var bool $isRequired */
@@ -60,9 +60,9 @@ class CustomField extends AbstractObject
     }
 
     /**
-     * @return string
+     * @return mixed
      */
-    public function value(): string
+    public function value()
     {
         return $this->value;
     }

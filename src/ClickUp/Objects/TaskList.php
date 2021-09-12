@@ -52,10 +52,20 @@ class TaskList extends AbstractObject
      */
     public function edit(array $body): array
     {
-        return $this->client()->put(
-            "list/{$this->id()}",
-            $body
-        );
+        return $this->client()->put("list/{$this->id()}", $body);
+    }
+
+    /**
+     * @see https://jsapi.apiary.io/apis/clickup20/reference/0/lists/add-task-to-list.html
+     *
+     * @param  string  $taskId
+     *
+     * @return array|bool|float|int|object|string|null
+     * @throws GuzzleException
+     */
+    public function addTask(string $taskId)
+    {
+        return $this->client()->post("list/{$this->id()}/task/{$taskId}");
     }
 
     /**
