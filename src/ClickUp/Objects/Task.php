@@ -395,6 +395,19 @@ class Task extends AbstractObject
     }
 
     /**
+     * @see https://jsapi.apiary.io/apis/clickup20/reference/0/tags/add-tag-to-task.html
+     *
+     * @param  string  $tagName
+     *
+     * @return array|bool|float|int|object|string|null
+     * @throws GuzzleException
+     */
+    public function setTag(string $tagName)
+    {
+        return $this->client()->post("task/{$this->id()}/tag/{$tagName}/");
+    }
+
+    /**
      * @param $array
      *
      * @throws Exception
