@@ -110,7 +110,7 @@ class Team extends AbstractObject
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {
@@ -119,9 +119,6 @@ class Team extends AbstractObject
         $this->color = $array['color'];
         $this->avatar = $array['avatar'];
         $this->members = new TeamMemberCollection($this, $array['members']);
-
-        if (isset($array['roles'])) {
-            $this->roles = new TeamRoleCollection($this, $array['roles']);
-        }
+        $this->roles = new TeamRoleCollection($this, $array['roles'] ?? []);
     }
 }
