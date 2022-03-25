@@ -23,12 +23,12 @@ Fork difference:
 
 ## Installation
 ```
-composer require Eduard9969/clickup-php
+composer require eduard9969/clickup-php
 ```
 
-The package is in development status. I don't want to add another copy of the fork to https://packagist.org/
+The package is in development status. ~~I don't want to add another copy of the fork to https://packagist.org/~~
 
-You can install the package using [VSC](https://getcomposer.org/doc/05-repositories.md#vcs) in your composer.json.
+Also, You can install the package using [VSC](https://getcomposer.org/doc/05-repositories.md#vcs) in your composer.json.
 Add the following code:
 ```composer
 "repositories": [
