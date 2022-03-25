@@ -3,23 +3,21 @@
 namespace ClickUp\Contracts;
 
 /**
- * Interface TimeDeferrer
- *
- * @package ClickUp\Contracts
+ * Interface TimeDeferrer.
  */
 interface TimeDeferrer
 {
     /**
-     * Get current time
+     * Get current time.
      *
      * @return mixed
      */
     public function getCurrentTime();
 
     /**
-     * Sleep
+     * Sleep.
      *
-     * @param  float  $microseconds
+     * @param float $microseconds
      *
      * @return mixed
      */

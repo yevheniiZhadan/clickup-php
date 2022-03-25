@@ -9,14 +9,12 @@ use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class Task
- *
- * @package ClickUp\Objects
+ * Class Task.
  */
 class Task extends AbstractObject
 {
-    use TaskFinderTrait,
-        DateImmutableTrait;
+    use TaskFinderTrait;
+    use DateImmutableTrait;
 
     /* @var string $id */
     private $id;
@@ -191,8 +189,9 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return Task|null
      * @throws GuzzleException
+     *
+     * @return Task|null
      */
     public function parentTask(): ?Task
     {
@@ -204,6 +203,7 @@ class Task extends AbstractObject
                 ->tasks()
                 ->getByTaskId($this->parentTaskId());
         }
+
         return $this->parentTask;
     }
 
@@ -256,50 +256,58 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return TaskList
      * @throws GuzzleException
+     *
+     * @return TaskList
      */
     public function taskList(): ?TaskList
     {
         if (is_null($this->taskList)) {
             $this->taskList = $this->folder()->taskList($this->taskListId());
         }
+
         return $this->taskList;
     }
 
     /**
-     * @return Folder
      * @throws GuzzleException
+     *
+     * @return Folder
      */
     public function folder(): ?Folder
     {
         if (is_null($this->folder)) {
             $this->folder = $this->space()->folder($this->folderId());
         }
+
         return $this->folder;
     }
 
     /**
-     * @return Space
      * @throws GuzzleException
+     *
+     * @return Space
      */
     public function space(): ?Space
     {
         if (is_null($this->space)) {
             $this->space = $this->team()->space($this->spaceId());
         }
+
         return $this->space;
     }
 
     /**
-     * @return Team
      * @throws GuzzleException
+     *
+     * @return Team
      */
     public function team(): ?Team
     {
         if (is_null($this->team)) {
             $this->team = $this->client()->team($this->teamId());
         }
+
         return $this->team;
     }
 
@@ -336,8 +344,9 @@ class Task extends AbstractObject
     }
 
     /**
-     * @return TaskCommentCollection|null
      * @throws GuzzleException
+     *
+     * @return TaskCommentCollection|null
      */
     public function comment(): ?TaskCommentCollection
     {
@@ -370,10 +379,11 @@ class Task extends AbstractObject
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/task/edit-task.html
      *
-     * @param  array  $body
+     * @param array $body
+     *
+     * @throws GuzzleException
      *
      * @return array
-     * @throws GuzzleException
      */
     public function edit(array $body): array
     {
@@ -383,11 +393,12 @@ class Task extends AbstractObject
     /**
      * @see https://jsapi.apiary.io/apis/clickup20/reference/0/custom-fields/set-custom-field-value.html
      *
-     * @param  string $customFieldId
-     * @param  array  $body
+     * @param string $customFieldId
+     * @param array  $body
+     *
+     * @throws GuzzleException
      *
      * @return array|bool|float|int|object|string|null
-     * @throws GuzzleException
      */
     public function setCustomField(string $customFieldId, array $body)
     {
@@ -397,10 +408,11 @@ class Task extends AbstractObject
     /**
      * @see https://jsapi.apiary.io/apis/clickup20/reference/0/tags/add-tag-to-task.html
      *
-     * @param  string  $tagName
+     * @param string $tagName
+     *
+     * @throws GuzzleException
      *
      * @return array|bool|float|int|object|string|null
-     * @throws GuzzleException
      */
     public function setTag(string $tagName)
     {

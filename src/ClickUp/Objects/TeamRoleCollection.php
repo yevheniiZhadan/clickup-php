@@ -13,7 +13,7 @@ class TeamRoleCollection extends AbstractObjectCollection
     /**
      * TeamRoleCollection constructor.
      *
-     * @param  Team  $team
+     * @param Team $team
      * @param $array
      */
     public function __construct(Team $team, $array)
@@ -23,7 +23,7 @@ class TeamRoleCollection extends AbstractObjectCollection
     }
 
     /**
-     * @param  Team  $team
+     * @param Team $team
      */
     private function setTeam(Team $team)
     {

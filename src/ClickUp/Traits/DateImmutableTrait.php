@@ -6,9 +6,7 @@ use DateTimeImmutable;
 use Exception;
 
 /**
- * Trait DateImmutableTrait
- *
- * @package ClickUp\Traits
+ * Trait DateImmutableTrait.
  */
 trait DateImmutableTrait
 {
@@ -16,8 +14,9 @@ trait DateImmutableTrait
      * @param $array
      * @param $key
      *
-     * @return DateTimeImmutable|null
      * @throws Exception
+     *
+     * @return DateTimeImmutable|null
      */
     private function getDate($array, $key): ?DateTimeImmutable
     {
@@ -25,6 +24,7 @@ trait DateImmutableTrait
             return null;
         }
         $unixTime = substr($array[$key], 0, 10);
+
         return new DateTimeImmutable("@$unixTime");
     }
 

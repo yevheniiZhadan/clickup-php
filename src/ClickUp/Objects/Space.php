@@ -6,9 +6,7 @@ use ClickUp\Traits\TaskFinderTrait;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class Space
- *
- * @package ClickUp\Objects
+ * Class Space.
  */
 class Space extends AbstractObject
 {
@@ -73,8 +71,9 @@ class Space extends AbstractObject
     /**
      * @param $folderId
      *
-     * @return Folder
      * @throws GuzzleException
+     *
+     * @return Folder
      */
     public function folder($folderId): Folder
     {
@@ -82,8 +81,9 @@ class Space extends AbstractObject
     }
 
     /**
-     * @return FolderCollection
      * @throws GuzzleException
+     *
+     * @return FolderCollection
      */
     public function folders(): ?FolderCollection
     {
@@ -93,6 +93,7 @@ class Space extends AbstractObject
                 $this->client()->get("space/{$this->id()}/folder")['folders']
             );
         }
+
         return $this->folders;
     }
 
@@ -105,7 +106,7 @@ class Space extends AbstractObject
     }
 
     /**
-     * @param  Team  $team
+     * @param Team $team
      */
     public function setTeam(Team $team)
     {
@@ -139,7 +140,7 @@ class Space extends AbstractObject
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {
@@ -149,15 +150,15 @@ class Space extends AbstractObject
         $this->statuses = new StatusCollection($this->client(), $array['statuses']);
         $this->clickApps = [
             'multiple_assignees' => $array['multiple_assignees'] ?? false,
-            'due_dates' => $array['features']['due_dates']['enabled'] ?? false,
-            'time_tracking' => $array['features']['time_tracking']['enabled'] ?? false,
-            'tags' => $array['features']['tags']['enabled'] ?? false,
-            'time_estimates' => $array['features']['time_estimates']['enabled'] ?? false,
-            'checklists' => $array['features']['checklists']['enabled'] ?? false,
-            'custom_fields' => $array['features']['custom_fields']['enabled'] ?? false,
+            'due_dates'          => $array['features']['due_dates']['enabled'] ?? false,
+            'time_tracking'      => $array['features']['time_tracking']['enabled'] ?? false,
+            'tags'               => $array['features']['tags']['enabled'] ?? false,
+            'time_estimates'     => $array['features']['time_estimates']['enabled'] ?? false,
+            'checklists'         => $array['features']['checklists']['enabled'] ?? false,
+            'custom_fields'      => $array['features']['custom_fields']['enabled'] ?? false,
             'remap_dependencies' => $array['features']['remap_dependencies']['enabled'] ?? false,
             'dependency_warning' => $array['features']['dependency_warning']['enabled'] ?? false,
-            'portfolios' => $array['features']['portfolios']['enabled'] ?? false,
+            'portfolios'         => $array['features']['portfolios']['enabled'] ?? false,
         ];
     }
 }

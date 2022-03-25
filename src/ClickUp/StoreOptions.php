@@ -8,28 +8,26 @@ use ClickUp\Deferrers\Sleep;
 use ClickUp\Store\Memory;
 
 /**
- * Class StoreOptions
- *
- * @package ClickUp\Traits
+ * Class StoreOptions.
  */
 class StoreOptions
 {
     /**
-     * The time store
+     * The time store.
      *
      * @var StateStorage
      */
     protected $timeStore;
 
     /**
-     * The limits store
+     * The limits store.
      *
      * @var StateStorage
      */
     protected $limitStore;
 
     /**
-     * The time deferrer
+     * The time deferrer.
      *
      * @var TimeDeferrer
      */
@@ -38,9 +36,9 @@ class StoreOptions
     /**
      * StoreOptions constructor.
      *
-     * @param  StateStorage|null  $tStore
-     * @param  StateStorage|null  $lStore
-     * @param  TimeDeferrer|null  $tDeferrer
+     * @param StateStorage|null $tStore
+     * @param StateStorage|null $lStore
+     * @param TimeDeferrer|null $tDeferrer
      */
     public function __construct(
         ?StateStorage $tStore = null,
@@ -53,7 +51,7 @@ class StoreOptions
     }
 
     /**
-     * Get time deferrer
+     * Get time deferrer.
      *
      * @return TimeDeferrer
      */
@@ -63,7 +61,7 @@ class StoreOptions
     }
 
     /**
-     * Get time store
+     * Get time store.
      *
      * @return StateStorage
      */
@@ -73,7 +71,7 @@ class StoreOptions
     }
 
     /**
-     * Get limit store
+     * Get limit store.
      *
      * @return StateStorage
      */

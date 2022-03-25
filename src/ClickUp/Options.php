@@ -3,31 +3,29 @@
 namespace ClickUp;
 
 /**
- * Class Option
- *
- * @package ClickUp
+ * Class Option.
  */
 class Options
 {
     /**
-     * Rest Limit Total
+     * Rest Limit Total.
      */
     public const HEADER_REST_API_LIMITS = 'X-RateLimit-Limit';
 
     /**
-     * Rest Limit Total Remaining
+     * Rest Limit Total Remaining.
      */
     public const HEADER_REST_API_LIMITS_REMAINING = 'X-RateLimit-Remaining';
 
     /**
-     * Access Token
+     * Access Token.
      *
      * @var string|null
      */
     protected $accessToken;
 
     /**
-     * Api version
+     * Api version.
      *
      * @var int
      */
@@ -42,28 +40,28 @@ class Options
         'headers' => [
             'Content-Type' => 'application/json',
         ],
-        'timeout' => 10.0,
-        'max_retry_attempts' => 3,
+        'timeout'                  => 10.0,
+        'max_retry_attempts'       => 3,
         'default_retry_multiplier' => 2.0,
-        'retry_on_status' => [429, 503, 500],
+        'retry_on_status'          => [429, 503, 500],
     ];
 
     /**
-     * Guzzle handler [Optional]
+     * Guzzle handler [Optional].
      *
      * @var callable|null
      */
     protected $guzzleHandler;
 
     /**
-     * API rate limit
+     * API rate limit.
      *
      * @var int
      */
     protected $rateLimit = 100;
 
     /**
-     * Option constructor
+     * Option constructor.
      *
      * @param $accessToken
      */
@@ -73,7 +71,7 @@ class Options
     }
 
     /**
-     * Get Access Token
+     * Get Access Token.
      *
      * @return string|null
      */
@@ -83,7 +81,7 @@ class Options
     }
 
     /**
-     * Get Access Token
+     * Get Access Token.
      *
      * @return string|null
      */
@@ -93,7 +91,7 @@ class Options
     }
 
     /**
-     * Get URI With Version
+     * Get URI With Version.
      *
      * @return string
      */
@@ -103,7 +101,7 @@ class Options
     }
 
     /**
-     * Get Api Version
+     * Get Api Version.
      *
      * @return int
      */
@@ -113,7 +111,7 @@ class Options
     }
 
     /**
-     * Get Guzzle Options
+     * Get Guzzle Options.
      *
      * @return array
      */
@@ -123,9 +121,9 @@ class Options
     }
 
     /**
-     * Set Guzzle Options
+     * Set Guzzle Options.
      *
-     * @param  array  $options
+     * @param array $options
      */
     public function setGuzzleOptions(array $options)
     {
@@ -143,7 +141,7 @@ class Options
     }
 
     /**
-     * Get rate limit
+     * Get rate limit.
      *
      * @return int
      */

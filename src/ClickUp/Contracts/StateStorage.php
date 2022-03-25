@@ -5,14 +5,12 @@ namespace ClickUp\Contracts;
 use ClickUp\Options;
 
 /**
- * Interface StateStorage
- *
- * @package ClickUp\Contracts
+ * Interface StateStorage.
  */
 interface StateStorage
 {
     /**
-     * Get all
+     * Get all.
      *
      * @return array
      */
@@ -21,7 +19,7 @@ interface StateStorage
     /**
      * Get the values.
      *
-     * @param  Options  $options
+     * @param Options $options
      *
      * @return array
      */
@@ -30,8 +28,8 @@ interface StateStorage
     /**
      * Set the values.
      *
-     * @param  array  $values
-     * @param  Options  $options
+     * @param array   $values
+     * @param Options $options
      *
      * @return void
      */
@@ -41,7 +39,7 @@ interface StateStorage
      * Set the values.
      *
      * @param $value
-     * @param  Options  $options
+     * @param Options $options
      *
      * @return void
      */
@@ -50,7 +48,7 @@ interface StateStorage
     /**
      * Remove all values.
      *
-     * @param  Options  $options
+     * @param Options $options
      *
      * @return void
      */

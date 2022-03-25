@@ -5,16 +5,14 @@ namespace ClickUp\Middleware;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Class RateLimiting
- *
- * @package ClickUp\Middleware
+ * Class RateLimiting.
  */
 class RateLimiting extends AbstractMiddleware
 {
     /**
-     * Invoke
+     * Invoke.
      *
-     * @param  callable  $handler
+     * @param callable $handler
      *
      * @return callable
      */

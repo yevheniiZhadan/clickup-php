@@ -7,16 +7,14 @@ use Psr\Http\Message\RequestInterface;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class UpdateApiLimits
- *
- * @package ClickUp\Middleware
+ * Class UpdateApiLimits.
  */
 class UpdateApiLimits extends AbstractMiddleware
 {
     /**
-     * Invoke
+     * Invoke.
      *
-     * @param  callable  $handler
+     * @param callable $handler
      *
      * @return callable
      */
@@ -39,8 +37,8 @@ class UpdateApiLimits extends AbstractMiddleware
                     $client = $self->client;
                     $client->getStoreOptions()->getLimitStore()->push(
                         [
-                            'left' => (int) $rateLimitTotal - (int) $rateLimitRemaining,
-                            'made' => (int) $rateLimitRemaining,
+                            'left'  => (int) $rateLimitTotal - (int) $rateLimitRemaining,
+                            'made'  => (int) $rateLimitRemaining,
                             'limit' => (int) $rateLimitTotal,
                         ],
                         $client->getOptions()

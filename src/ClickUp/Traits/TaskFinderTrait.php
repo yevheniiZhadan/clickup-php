@@ -10,18 +10,17 @@ use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Trait TaskFinderTrait
- *
- * @package ClickUp\Traits
+ * Trait TaskFinderTrait.
  */
 trait TaskFinderTrait
 {
     /**
-     * @param  bool  $includeSubTask
-     * @param  bool  $includeClosed
+     * @param bool $includeSubTask
+     * @param bool $includeClosed
+     *
+     * @throws GuzzleException
      *
      * @return TaskCollection
-     * @throws GuzzleException
      */
     public function tasks(bool $includeSubTask = false, bool $includeClosed = false): TaskCollection
     {
@@ -59,12 +58,13 @@ trait TaskFinderTrait
     }
 
     /**
-     * @param  false  $includeSubTask
-     * @param  false  $includeClosed
-     * @param  callable|null  $callback
+     * @param false         $includeSubTask
+     * @param false         $includeClosed
+     * @param callable|null $callback
+     *
+     * @throws GuzzleException
      *
      * @return bool
-     * @throws GuzzleException
      */
     public function tasksChunk(bool $includeSubTask = false, bool $includeClosed = false, callable $callback = null): bool
     {
@@ -72,6 +72,7 @@ trait TaskFinderTrait
 
         do {
             $tasks = null;
+
             try {
                 $tasks = $this
                     ->taskFinder()
@@ -101,10 +102,11 @@ trait TaskFinderTrait
     }
 
     /**
-     * @param  string  $taskId
+     * @param string $taskId
+     *
+     * @throws GuzzleException
      *
      * @return Task
-     * @throws GuzzleException
      */
     public function task(string $taskId): Task
     {

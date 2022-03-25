@@ -5,9 +5,7 @@ namespace ClickUp\Objects;
 use ClickUp\Client;
 
 /**
- * Class AbstractObject
- *
- * @package ClickUp\Objects
+ * Class AbstractObject.
  */
 abstract class AbstractObject
 {
@@ -18,8 +16,8 @@ abstract class AbstractObject
     private $extra;
 
     /**
-     * @param  Client  $client
-     * @param  array  $array
+     * @param Client $client
+     * @param array  $array
      */
     public function __construct(Client $client, array $array)
     {

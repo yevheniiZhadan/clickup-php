@@ -6,16 +6,14 @@ use Exception;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Class AuthRequest
- *
- * @package ClickUp\Middleware
+ * Class AuthRequest.
  */
 class AuthRequest extends AbstractMiddleware
 {
     /**
-     * Invoke
+     * Invoke.
      *
-     * @param  callable  $handler
+     * @param callable $handler
      *
      * @return callable
      */

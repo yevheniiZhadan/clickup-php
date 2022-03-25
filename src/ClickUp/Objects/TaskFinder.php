@@ -6,9 +6,8 @@ use ClickUp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class TaskFinder
+ * Class TaskFinder.
  *
- * @package ClickUp\Objects
  *
  * @see https://jsapi.apiary.io/apis/clickup20/reference/0/tasks/get-filtered-team-tasks.html
  */
@@ -24,8 +23,8 @@ class TaskFinder
     private $params = [];
 
     /**
-     * @param  Client  $client
-     * @param  int  $teamId
+     * @param Client $client
+     * @param int    $teamId
      */
     public function __construct(Client $client, int $teamId)
     {
@@ -36,8 +35,9 @@ class TaskFinder
     /**
      * @param $taskId
      *
-     * @return Task
      * @throws GuzzleException
+     *
+     * @return Task
      */
     public function getByTaskId($taskId): Task
     {
@@ -50,8 +50,9 @@ class TaskFinder
     }
 
     /**
-     * @return TaskCollection
      * @throws GuzzleException
+     *
+     * @return TaskCollection
      */
     public function getCollection(): TaskCollection
     {
@@ -65,18 +66,21 @@ class TaskFinder
     public function addParams($params): TaskFinder
     {
         $this->params = array_merge_recursive($this->params, $params);
+
         return $this;
     }
 
     public function includeClosed($include = true): TaskFinder
     {
         $this->addParams(['include_closed' => $include]);
+
         return $this;
     }
 
     public function includeSubTask($include = true): TaskFinder
     {
         $this->addParams(['subtasks' => $include]);
+
         return $this;
     }
 

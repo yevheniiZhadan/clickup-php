@@ -18,9 +18,7 @@ use GuzzleRetry\GuzzleRetryMiddleware;
 use Psr\Http\Message\ResponseInterface;
 
 /**
- * Class Client
- *
- * @package ClickUp
+ * Class Client.
  */
 class Client
 {
@@ -37,14 +35,14 @@ class Client
     private $handlerStack;
 
     /**
-     * Options
+     * Options.
      *
      * @var Options
      */
     private $options;
 
     /**
-     * Store options
+     * Store options.
      *
      * @var StoreOptions
      */
@@ -53,8 +51,8 @@ class Client
     /**
      * Client constructor.
      *
-     * @param  Options  $options
-     * @param  StoreOptions|null  $storeOptions
+     * @param Options           $options
+     * @param StoreOptions|null $storeOptions
      */
     public function __construct(Options $options, ?StoreOptions $storeOptions = null)
     {
@@ -95,7 +93,7 @@ class Client
     }
 
     /**
-     * @param  Options  $options
+     * @param Options $options
      */
     public function setOptions(Options $options)
     {
@@ -103,14 +101,15 @@ class Client
     }
 
     /**
-     * @param  callable  $callable
-     * @param  string  $name
+     * @param callable $callable
+     * @param string   $name
      *
      * @return Client
      */
     public function addMiddleware(callable $callable, string $name = ''): Client
     {
         $this->handlerStack->push($callable, $name);
+
         return $this;
     }
 
@@ -123,7 +122,7 @@ class Client
     }
 
     /**
-     * @param  StoreOptions  $storeOptions
+     * @param StoreOptions $storeOptions
      */
     public function setStoreOptions(StoreOptions $storeOptions)
     {
@@ -139,8 +138,9 @@ class Client
     }
 
     /**
-     * @return User
      * @throws GuzzleException
+     *
+     * @return User
      */
     public function user(): User
     {
@@ -150,8 +150,9 @@ class Client
     /**
      * @param $teamId
      *
-     * @return Team
      * @throws GuzzleException
+     *
+     * @return Team
      */
     public function team($teamId): Team
     {
@@ -159,8 +160,9 @@ class Client
     }
 
     /**
-     * @return TeamCollection
      * @throws GuzzleException
+     *
+     * @return TeamCollection
      */
     public function teams(): TeamCollection
     {
@@ -171,7 +173,7 @@ class Client
     }
 
     /**
-     * @param  int  $teamId
+     * @param int $teamId
      *
      * @return TaskFinder
      */
@@ -181,46 +183,52 @@ class Client
     }
 
     /**
-     * @param  string  $method
-     * @param  array  $params
+     * @param string $method
+     * @param array  $params
+     *
+     * @throws GuzzleException
      *
      * @return array|bool|float|int|object|string|null
-     * @throws GuzzleException
      */
     public function get(string $method, array $params = [])
     {
         $response = $this->guzzleClient->request('GET', $method, ['query' => $params]);
+
         return $this->decodeBody($response);
     }
 
     /**
-     * @param  string  $method
-     * @param  array  $body
+     * @param string $method
+     * @param array  $body
+     *
+     * @throws GuzzleException
      *
      * @return array|bool|float|int|object|string|null
-     * @throws GuzzleException
      */
     public function post(string $method, array $body = [])
     {
         $response = $this->guzzleClient->request('POST', $method, ['json' => $body]);
+
         return $this->decodeBody($response);
     }
 
     /**
-     * @param  string  $method
-     * @param  array  $body
+     * @param string $method
+     * @param array  $body
+     *
+     * @throws GuzzleException
      *
      * @return array|bool|float|int|object|string|null
-     * @throws GuzzleException
      */
     public function put(string $method, array $body = [])
     {
         $response = $this->guzzleClient->request('PUT', $method, ['json' => $body]);
+
         return $this->decodeBody($response);
     }
 
     /**
-     * Decode Body
+     * Decode Body.
      *
      * @param ResponseInterface $response
      *

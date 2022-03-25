@@ -6,9 +6,7 @@ use ClickUp\Contracts\StateStorage;
 use ClickUp\Options;
 
 /**
- * Class Memory
- *
- * @package ClickUp\Store
+ * Class Memory.
  */
 class Memory implements StateStorage
 {
