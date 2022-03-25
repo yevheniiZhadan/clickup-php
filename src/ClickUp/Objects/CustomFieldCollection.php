@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method CustomField   getByKey(int string $id)
- * @method CustomField   getByName(string string $name)
+ * @method CustomField   getByKey(int $id)
+ * @method CustomField   getByName(string $name)
  * @method CustomField[] objects()
  * @method CustomField[] getIterator()
  */

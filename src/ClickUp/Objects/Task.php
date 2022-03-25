@@ -444,12 +444,13 @@ class Task extends AbstractObject
         $this->spaceId = $array['space']['id'];
         $this->url = $array['url'];
 
-        if (isset($array['tags'])) {
-            $this->tags = new TagCollection($this->client(), $array['tags']);
-        }
-
-        if (isset($array['custom_fields'])) {
-            $this->customFields = new CustomFieldCollection($this->client(), $array['custom_fields']);
-        }
+        $this->tags = new TagCollection(
+            $this->client(),
+            $array['tags'] ?? []
+        );
+        $this->customFields = new CustomFieldCollection(
+            $this->client(),
+            $array['custom_fields'] ?? []
+        );
     }
 }

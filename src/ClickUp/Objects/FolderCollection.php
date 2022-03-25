@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method Folder   getByKey(int int $id)
- * @method Folder   getByName(string string $name)
+ * @method Folder   getByKey(int $id)
+ * @method Folder   getByName(string $name)
  * @method Folder[] objects()
  * @method Folder[] getIterator()
  */

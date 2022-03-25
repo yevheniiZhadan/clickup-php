@@ -3,8 +3,8 @@
 namespace ClickUp\Objects;
 
 /**
- * @method TeamRole   getByKey(int int $id)
- * @method TeamRole   getByName(string string $name)
+ * @method TeamRole   getByKey(int $id)
+ * @method TeamRole   getByName(string $name)
  * @method TeamRole[] objects()
  * @method TeamRole[] getIterator()
  */

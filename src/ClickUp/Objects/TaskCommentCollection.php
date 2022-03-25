@@ -3,7 +3,7 @@
 namespace ClickUp\Objects;
 
 /**
- * @method TaskComment   getByKey(int int $id)
+ * @method TaskComment   getByKey(int $id)
  * @method TaskComment[] objects()
  * @method TaskComment[] getIterator()
  */

@@ -4,7 +4,7 @@ namespace ClickUp\Objects;
 
 /**
  * @method User   getById(int $id)
- * @method User   getByName(string string $name)
+ * @method User   getByName(string $name)
  * @method User[] objects()
  * @method User[] getIterator()
  */
