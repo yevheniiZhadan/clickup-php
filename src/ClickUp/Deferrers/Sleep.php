@@ -5,9 +5,7 @@ namespace ClickUp\Deferrers;
 use ClickUp\Contracts\TimeDeferrer;
 
 /**
- * Class Sleep
- *
- * @package ClickUp\Deferrers
+ * Class Sleep.
  */
 class Sleep implements TimeDeferrer
 {

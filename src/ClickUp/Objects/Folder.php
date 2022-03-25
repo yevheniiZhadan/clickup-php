@@ -6,9 +6,7 @@ use ClickUp\Traits\TaskFinderTrait;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class Folder
- *
- * @package ClickUp\Objects
+ * Class Folder.
  */
 class Folder extends AbstractObject
 {
@@ -20,13 +18,13 @@ class Folder extends AbstractObject
     /* @var string $name */
     private $name;
 
-    /** @var int $orderIndex */
+    /** @var int */
     private $orderIndex;
 
-    /** @var bool $isHidden */
+    /** @var bool */
     private $isHidden;
 
-    /** @var string $taskCount */
+    /** @var string */
     private $taskCount;
 
     /* @var TaskListCollection $taskLists */
@@ -77,7 +75,7 @@ class Folder extends AbstractObject
     }
 
     /**
-     * @param  int  $taskListId
+     * @param int $taskListId
      *
      * @return TaskList
      */
@@ -121,7 +119,7 @@ class Folder extends AbstractObject
     }
 
     /**
-     * @param  Space  $space
+     * @param Space $space
      */
     public function setSpace(Space $space)
     {
@@ -129,7 +127,7 @@ class Folder extends AbstractObject
     }
 
     /**
-     * @param  StatusCollection  $statuses
+     * @param StatusCollection $statuses
      */
     public function setStatuses(StatusCollection $statuses)
     {
@@ -139,10 +137,11 @@ class Folder extends AbstractObject
     /**
      * @see https://jsapi.apiary.io/apis/clickup/reference/0/list/create-list.html
      *
-     * @param  array  $body
+     * @param array $body
+     *
+     * @throws GuzzleException
      *
      * @return TaskList|null
-     * @throws GuzzleException
      */
     public function createTaskList(array $body): ?TaskList
     {
@@ -190,7 +189,7 @@ class Folder extends AbstractObject
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {

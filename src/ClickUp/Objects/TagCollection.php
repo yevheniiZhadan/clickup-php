@@ -11,7 +11,7 @@ namespace ClickUp\Objects;
 class TagCollection extends AbstractObjectCollection
 {
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {

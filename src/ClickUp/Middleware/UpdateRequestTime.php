@@ -5,16 +5,14 @@ namespace ClickUp\Middleware;
 use Psr\Http\Message\RequestInterface;
 
 /**
- * Class UpdateRequestTime
- *
- * @package ClickUp\Middleware
+ * Class UpdateRequestTime.
  */
 class UpdateRequestTime extends AbstractMiddleware
 {
     /**
-     * Invoke
+     * Invoke.
      *
-     * @param  callable  $handler
+     * @param callable $handler
      *
      * @return callable
      */

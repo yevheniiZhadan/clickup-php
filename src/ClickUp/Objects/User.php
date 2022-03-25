@@ -3,9 +3,7 @@
 namespace ClickUp\Objects;
 
 /**
- * Class User
- *
- * @package ClickUp\Objects
+ * Class User.
  */
 class User extends AbstractObject
 {
@@ -65,7 +63,7 @@ class User extends AbstractObject
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {

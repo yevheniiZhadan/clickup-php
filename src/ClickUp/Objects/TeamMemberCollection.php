@@ -32,7 +32,7 @@ class TeamMemberCollection extends UserCollection
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {

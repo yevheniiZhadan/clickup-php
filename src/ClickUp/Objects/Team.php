@@ -6,9 +6,7 @@ use ClickUp\Traits\TaskFinderTrait;
 use GuzzleHttp\Exception\GuzzleException;
 
 /**
- * Class Team
- *
- * @package ClickUp\Objects
+ * Class Team.
  */
 class Team extends AbstractObject
 {
@@ -70,8 +68,9 @@ class Team extends AbstractObject
     /**
      * @param $spaceId
      *
-     * @return Space
      * @throws GuzzleException
+     *
+     * @return Space
      */
     public function space($spaceId): Space
     {
@@ -79,8 +78,9 @@ class Team extends AbstractObject
     }
 
     /**
-     * @return SpaceCollection
      * @throws GuzzleException
+     *
+     * @return SpaceCollection
      */
     public function spaces(): ?SpaceCollection
     {
@@ -90,6 +90,7 @@ class Team extends AbstractObject
                 $this->client()->get("team/{$this->id()}/space")['spaces']
             );
         }
+
         return $this->spaces;
     }
 

@@ -7,9 +7,7 @@ use DateTimeImmutable;
 use Exception;
 
 /**
- * Class Comment
- *
- * @package ClickUp\Objects
+ * Class Comment.
  */
 class Comment extends AbstractObject
 {

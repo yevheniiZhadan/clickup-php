@@ -3,9 +3,7 @@
 namespace ClickUp\Objects;
 
 /**
- * Class Status
- *
- * @package ClickUp\Objects
+ * Class Status.
  */
 class Status extends AbstractObject
 {
@@ -54,7 +52,7 @@ class Status extends AbstractObject
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {

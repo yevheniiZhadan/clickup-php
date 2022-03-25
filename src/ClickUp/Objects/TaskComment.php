@@ -3,9 +3,7 @@
 namespace ClickUp\Objects;
 
 /**
- * Class TaskComment
- *
- * @package ClickUp\Objects
+ * Class TaskComment.
  */
 class TaskComment extends Comment
 {
@@ -21,7 +19,7 @@ class TaskComment extends Comment
     }
 
     /**
-     * @param  Task  $task
+     * @param Task $task
      */
     public function setTask(Task $task)
     {

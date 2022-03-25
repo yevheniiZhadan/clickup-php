@@ -3,9 +3,7 @@
 namespace ClickUp\Objects;
 
 /**
- * Class TeamMember
- *
- * @package ClickUp\Objects
+ * Class TeamMember.
  */
 class TeamMember extends User
 {
@@ -34,7 +32,7 @@ class TeamMember extends User
     }
 
     /**
-     * @param  Team  $team
+     * @param Team $team
      */
     public function setTeam(Team $team)
     {
@@ -42,7 +40,7 @@ class TeamMember extends User
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     public function fromArray($array)
     {

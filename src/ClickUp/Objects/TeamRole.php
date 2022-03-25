@@ -3,19 +3,17 @@
 namespace ClickUp\Objects;
 
 /**
- * Class TeamRole
- *
- * @package ClickUp\Objects
+ * Class TeamRole.
  */
 class TeamRole extends AbstractObject
 {
-    /** @var int $id */
+    /** @var int */
     private $id;
 
-    /** @var string $name */
+    /** @var string */
     private $name;
 
-    /** @var bool $custom */
+    /** @var bool */
     private $isCustom;
 
     /* @var Team $team */
@@ -56,7 +54,7 @@ class TeamRole extends AbstractObject
     }
 
     /**
-     * @param  Team  $team
+     * @param Team $team
      */
     public function setTeam(Team $team)
     {

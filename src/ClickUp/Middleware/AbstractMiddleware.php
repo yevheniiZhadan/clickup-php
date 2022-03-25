@@ -5,9 +5,7 @@ namespace ClickUp\Middleware;
 use ClickUp\Client;
 
 /**
- * Class AbstractMiddleware
- *
- * @package ClickUp\Middleware
+ * Class AbstractMiddleware.
  */
 abstract class AbstractMiddleware
 {

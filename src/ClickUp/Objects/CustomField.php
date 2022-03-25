@@ -3,28 +3,26 @@
 namespace ClickUp\Objects;
 
 /**
- * Class CustomField
- *
- * @package ClickUp\Objects
+ * Class CustomField.
  */
 class CustomField extends AbstractObject
 {
-    /** @var string $id */
+    /** @var string */
     private $id;
 
-    /** @var string $name */
+    /** @var string */
     private $name;
 
     /** @var string */
     private $type;
 
-    /** @var bool $hideFromGuests */
+    /** @var bool */
     private $isHideFromGuests;
 
-    /** @var mixed $value */
+    /** @var mixed */
     private $value;
 
-    /** @var bool $isRequired */
+    /** @var bool */
     private $isRequired;
 
     /**

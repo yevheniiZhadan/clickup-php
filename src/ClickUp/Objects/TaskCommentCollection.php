@@ -12,7 +12,7 @@ class TaskCommentCollection extends CommentCollection
     /**
      * TaskCommentCollection constructor.
      *
-     * @param  Task  $task
+     * @param Task $task
      * @param $array
      */
     public function __construct(Task $task, $array)

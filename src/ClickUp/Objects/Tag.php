@@ -3,19 +3,17 @@
 namespace ClickUp\Objects;
 
 /**
- * Class Tag
- *
- * @package ClickUp\Objects
+ * Class Tag.
  */
 class Tag extends AbstractObject
 {
-    /** @var string $name */
+    /** @var string */
     private $name;
 
-    /** @var string $tag_fg */
+    /** @var string */
     private $tag_fg;
 
-    /** @var string $tag_bg */
+    /** @var string */
     private $tag_bg;
 
     /**

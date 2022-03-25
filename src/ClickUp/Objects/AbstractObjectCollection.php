@@ -8,9 +8,7 @@ use RuntimeException;
 use Traversable;
 
 /**
- * Class AbstractObjectCollection
- *
- * @package ClickUp\Objects
+ * Class AbstractObjectCollection.
  */
 abstract class AbstractObjectCollection extends AbstractObject implements IteratorAggregate
 {
@@ -18,7 +16,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     protected $objects;
 
     /**
-     * @param  string $id
+     * @param string $id
      *
      * @return AbstractObject
      */
@@ -27,11 +25,12 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
         if (!isset($this->objects[$id])) {
             throw new RuntimeException("id:$id not exist.");
         }
+
         return $this->objects[$id];
     }
 
     /**
-     * @param  string  $name
+     * @param string $name
      *
      * @return AbstractObject
      */
@@ -43,6 +42,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
                 return $value;
             }
         }
+
         throw new RuntimeException("name:$name not exist.");
     }
 
@@ -95,7 +95,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
     }
 
     /**
-     * @param  array  $array
+     * @param array $array
      */
     protected function fromArray($array)
     {
@@ -121,4 +121,3 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
         return 'id';
     }
 }
-
