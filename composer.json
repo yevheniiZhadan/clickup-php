@@ -1,5 +1,5 @@
 {
-    "name": "eduard9969/clickup-php",
+    "name": "yevheniiZhadan/clickup-php",
     "description": "Fork ClickUp API client (unofficial)",
     "keywords": [
         "ClickUp",
@@ -14,8 +14,8 @@
             "email": "qrbys@outlook.com"
         },
         {
-            "name": "Eduard Samoilenko",
-            "email": "eduard9969@gmail.com",
+            "name": "Yevhenii Zhadan",
+            "email": "noemail@gmail.com",
             "role": "Developer"
         }
     ],
