@@ -67,7 +67,7 @@ abstract class AbstractObjectCollection extends AbstractObject implements Iterat
      */
     public function objects(): array
     {
-        return $this->objects;
+        return $this->objects ?? [];
     }
 
     /**
