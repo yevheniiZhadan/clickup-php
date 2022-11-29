@@ -111,6 +111,14 @@ class Task extends AbstractObject
     /**
      * @return string
      */
+    public function url(): string
+    {
+        return $this->url;
+    }
+
+    /**
+     * @return string
+     */
     public function description(): string
     {
         return $this->description;
@@ -218,7 +226,7 @@ class Task extends AbstractObject
     /**
      * @return DateTimeImmutable
      */
-    public function dueDate(): DateTimeImmutable
+    public function dueDate(): ?DateTimeImmutable
     {
         return $this->dueDate;
     }

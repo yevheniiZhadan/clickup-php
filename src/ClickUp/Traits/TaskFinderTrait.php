@@ -66,7 +66,7 @@ trait TaskFinderTrait
      *
      * @return bool
      */
-    public function tasksChunk(bool $includeSubTask = false, bool $includeClosed = false, callable $callback = null): bool
+    public function tasksChunk(bool $includeSubTask = false, bool $includeClosed = false, array $tags = [], callable $callback = null): bool
     {
         $page = 0;
 
@@ -76,10 +76,21 @@ trait TaskFinderTrait
             try {
                 $tasks = $this
                     ->taskFinder()
-                    ->includeSubTask($includeSubTask)
-                    ->includeClosed($includeClosed)
-                    ->addParams(['page' => $page])
-                    ->getCollection();
+                    ->addParams(['page' => $page]);
+
+                if ($includeClosed) {
+                    $tasks->includeClosed($includeClosed);
+                }
+
+                if ($includeSubTask) {
+                    $tasks->includeSubTask($includeSubTask);
+                }
+
+                if (!empty($tags)) {
+                    $tasks->includeTags($tags);
+                }
+
+                $tasks = $tasks->getCollection();
 
                 $issetTasks = $tasks->isNotEmpty();
                 $tasks = $tasks->objects();
