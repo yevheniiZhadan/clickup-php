@@ -84,6 +84,13 @@ class TaskFinder
         return $this;
     }
 
+    public function includeTags($include = []): TaskFinder
+    {
+        $this->addParams(['tags' => $include]);
+
+        return $this;
+    }
+    
     public function resetParams()
     {
         $this->params = [];
