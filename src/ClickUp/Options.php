@@ -40,7 +40,7 @@ class Options
         'headers' => [
             'Content-Type' => 'application/json',
         ],
-        'timeout'                  => 20.0,
+        'timeout'                  => 15.0,
         'max_retry_attempts'       => 3,
         'default_retry_multiplier' => 2.0,
         'retry_on_status'          => [429, 503, 500],
