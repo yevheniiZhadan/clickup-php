@@ -100,6 +100,8 @@ class Task extends AbstractObject
     /* @var string $url */
     private $url;
 
+    /* @var string $customLocationName */
+    private $customLocationName;
     /**
      * @return string
      */
@@ -114,6 +116,24 @@ class Task extends AbstractObject
     public function url(): string
     {
         return $this->url;
+    }
+
+    /**
+     * @return string
+     */
+    public function setLocationName(?string $location)
+    {
+        $this->customLocationName = $location;
+
+        return  $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getLocationName(): ?string
+    {
+        return $this->customLocationName;
     }
 
     /**

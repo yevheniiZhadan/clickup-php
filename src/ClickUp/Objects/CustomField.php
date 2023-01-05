@@ -20,6 +20,9 @@ class CustomField extends AbstractObject
     private $isHideFromGuests;
 
     /** @var mixed */
+    private $options;
+
+    /** @var mixed */
     private $value;
 
     /** @var bool */
@@ -66,6 +69,14 @@ class CustomField extends AbstractObject
     }
 
     /**
+     * @return mixed
+     */
+    public function options()
+    {
+        return $this->options;
+    }
+
+    /**
      * @return bool
      */
     public function isRequired(): bool
@@ -84,5 +95,6 @@ class CustomField extends AbstractObject
         $this->isHideFromGuests = $array['hide_from_guests'] ?? false;
         $this->value = $array['value'] ?? false;
         $this->isRequired = $array['required'] ?? false;
+        $this->options = $array['type_config']['options'] ?? false;
     }
 }
